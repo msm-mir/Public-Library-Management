@@ -145,7 +145,23 @@ public class Book {
         }
     }
     public static void searchBookByPrice() {
+        System.out.print("Price: ");
 
+        Scanner scn = new Scanner(System.in);
+        int price = scn.nextInt();
+
+        boolean find = false;
+        for (int i = 0; i < 100; i++) {
+            if (Library.books[i].exist) {
+                if (Library.books[i].price <= price) {
+                    readBook(Library.books[i].name);
+                    find = true;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Book with a lower price doesn't exist!");
+        }
     }
     public static void searchBookByBorrowStatus() {
 
