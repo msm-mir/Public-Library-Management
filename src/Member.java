@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Scanner;
 
 public class Member {
@@ -105,7 +107,9 @@ public class Member {
                         } else {
                             for (int j = 0; j < 9; j++) {
                                 if (!Library.members[id].borrowedBooks[j].getBorrowStatus()) {
-                                    Library.books[i].borrow(id);
+                                    Library.members[id].borrowedBooks[j].setDate(LocalDate.now().plus(Period.ofMonths(1)));
+                                    Library.members[id].borrowedBooks[j].setBorrowStatus(true);
+                                    Library.members[id].borrowedBooks[j].setMemberId(id);
                                     Library.members[id].borrowedBooks[j] = Library.books[i];
                                     System.out.println("Book borrowed successfully!");
                                     return;
@@ -138,7 +142,7 @@ public class Member {
                             for (int j = 0; j < 9; j++) {
                                 if (!Library.members[id].borrowedBooks[j].getBorrowStatus()) {
                                     if (Library.members[id].borrowedBooks[j].getName() == name) {
-                                        Library.books[i].returnB();
+                                        Library.members[i].borrowedBooks[j].setBorrowStatus(false);
                                         return;
                                     }
                                 }
@@ -150,6 +154,13 @@ public class Member {
                 System.out.println("Book doesn't exist!");
         } else {
             System.out.println("Member doesn't exist!");
+        }
+    }
+    public static void showOverBorrowedMembers(int id) {
+        for (int i = 0; i < 100; i++) {
+            if (Library.members[i].exist) {
+                if (Library.members[i].borrowedBooks)
+            }
         }
     }
 }

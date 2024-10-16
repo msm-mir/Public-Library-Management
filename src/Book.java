@@ -24,7 +24,10 @@ public class Book {
     public String getName() { return this.name; }
     public String getAuthor() { return this.author; }
     public int getPrice() { return this.price; }
-    public boolean getBorrowStatus() {return this.borrowStatus; }
+    public boolean getBorrowStatus() { return this.borrowStatus; }
+    public void setBorrowStatus(boolean status) { this.borrowStatus = status; }
+    public void setDate(LocalDate date) { this.date = date; }
+    public void setMemberId(int id) {this.memberId = id; }
 
     public static void createBook() {
         Scanner scn = new Scanner(System.in);
@@ -104,10 +107,7 @@ public class Book {
     }
 
     public void borrow(int id) {
-        LocalDate date = LocalDate.now().plus(Period.ofMonths(1));
-        this.date = date;
-        this.borrowStatus = true;
-        this.memberId = id;
+
     }
     public void returnB() {
         this.borrowStatus = false;
