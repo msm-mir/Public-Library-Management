@@ -176,9 +176,8 @@ public class Member {
         Scanner scn = new Scanner(System.in);
         String name = scn.nextLine();
 
-        int i;
         boolean find = false;
-        for (i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             if (Library.members[i].exist) {
                 if (Library.members[i].name == name) {
                     readMember(i);
@@ -189,10 +188,25 @@ public class Member {
         if (!find) {
             System.out.println("Member with this name doesn't exist!");
         }
-
     }
     public static void searchMemberByAge() {
+        System.out.print("Age: ");
 
+        Scanner scn = new Scanner(System.in);
+        int age = scn.nextInt();
+
+        boolean find = false;
+        for (int i = 0; i < 100; i++) {
+            if (Library.members[i].exist) {
+                if (Library.members[i].age == age) {
+                    readMember(i);
+                    find = true;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Member with this age doesn't exist!");
+        }
     }
     public static void searchMemberByGender() {
 
