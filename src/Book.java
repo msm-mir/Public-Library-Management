@@ -25,6 +25,7 @@ public class Book {
     public String getAuthor() { return this.author; }
     public int getPrice() { return this.price; }
     public boolean getBorrowStatus() { return this.borrowStatus; }
+    public LocalDate getDate() { return this.date; }
     public void setBorrowStatus(boolean status) { this.borrowStatus = status; }
     public void setDate(LocalDate date) { this.date = date; }
     public void setMemberId(int id) {this.memberId = id; }
@@ -104,12 +105,5 @@ public class Book {
             if (name == Library.books[i].name) return i;
         }
         return -1;
-    }
-
-    public void borrow(int id) {
-
-    }
-    public void returnB() {
-        this.borrowStatus = false;
     }
 }
