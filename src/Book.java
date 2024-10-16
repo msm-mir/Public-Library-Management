@@ -1,3 +1,6 @@
+
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Scanner;
 
 public class Book {
@@ -6,6 +9,9 @@ public class Book {
     private int price;
     private static int idxManager = 0;
     private boolean exist = false;
+    private boolean borrowStatus = false;
+    private LocalDate date;
+    private int memberId;
 
     Book(String name, String author, int price) {
         this.name = name;
@@ -18,6 +24,7 @@ public class Book {
     public String getName() { return this.name; }
     public String getAuthor() { return this.author; }
     public int getPrice() { return this.price; }
+    public boolean getBorrowStatus() {return this.borrowStatus; }
 
     public static void createBook() {
         Scanner scn = new Scanner(System.in);
@@ -94,5 +101,15 @@ public class Book {
             if (name == Library.books[i].name) return i;
         }
         return -1;
+    }
+
+    public void borrow(int id) {
+        LocalDate date = LocalDate.now().plus(Period.ofMonths(1));
+        this.date = date;
+        this.borrowStatus = true;
+        this.memberId = id;
+    }
+    public void returnB() {
+        this.borrowStatus = false;
     }
 }
