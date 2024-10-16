@@ -12,7 +12,7 @@ public class Member {
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.id = Member.idManager++;
+        this.id = idManager++;
         this.exist = true;
     }
 
@@ -20,12 +20,18 @@ public class Member {
     public int getAge() { return this.age; }
     public char getGender() { return this.gender; }
     public int getId() { return this.id; }
+    public static void setIdManager() {
+        for (int i = 0; i < 100; i++) {
+            if (!Library.members[i].exist) idManager = i;
+        }
+        idManager = 100;
+    }
 
     public static void createMember() {
         Scanner scn = new Scanner(System.in);
-        int id = Member.idManager;
 
-        if (id >= 0 && id < 100) {
+        if (idManager != 100) {
+            int id = idManager;
             System.out.println("Member(" + id + "):");
 
             System.out.print("Name: ");
@@ -38,8 +44,7 @@ public class Member {
             Library.members[id].gender = scn.next().charAt(0);
 
             Library.members[id].exist = true;
-
-            Member.idManager++;
+            setIdManager();
 
             System.out.println("Member added successfully!");
         } else {
@@ -77,12 +82,8 @@ public class Member {
     }
     public static void deleteMember(int id) {
         if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
-            for (int i = id; i > Member.idManager - 1; i++) {
-                if (i != 99) Library.members[i] = Library.members[i + 1];
-                else Library.members[i] = null;
-            }
-            Member.idManager--;
-            Library.members[Member.idManager].exist = false;
+            Library.members[id].exist = false;
+            setIdManager();
             System.out.println("Member deleted successfully!");
         } else {
             System.out.println("Member doesn't exist!");
