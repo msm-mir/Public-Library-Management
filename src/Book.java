@@ -164,6 +164,17 @@ public class Book {
         }
     }
     public static void searchBookByBorrowStatus() {
-
+        boolean find = false;
+        for (int i = 0; i < 100; i++) {
+            if (Library.books[i].exist) {
+                if (!Library.books[i].borrowStatus) {
+                    readBook(Library.books[i].name);
+                    find = true;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Free book doesn't exist!");
+        }
     }
 }
