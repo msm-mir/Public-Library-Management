@@ -209,6 +209,22 @@ public class Member {
         }
     }
     public static void searchMemberByGender() {
+        System.out.print("Gender: ");
 
+        Scanner scn = new Scanner(System.in);
+        char gender = scn.next().charAt(0);
+
+        boolean find = false;
+        for (int i = 0; i < 100; i++) {
+            if (Library.members[i].exist) {
+                if (Library.members[i].gender == gender) {
+                    readMember(i);
+                    find = true;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Member with this gender doesn't exist!");
+        }
     }
 }
