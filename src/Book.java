@@ -106,4 +106,16 @@ public class Book {
         }
         return -1;
     }
+    public static void searchBookByName() {
+
+    }
+    public static void searchBookByAuthor() {
+
+    }
+    public static void searchBookByPrice() {
+
+    }
+    public static void searchBookByBorrowStatus() {
+
+    }
 }

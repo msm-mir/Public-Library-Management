@@ -95,7 +95,7 @@ public class Member {
     public static void borrowBook(int id) {
         if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
             if (!Library.members[id].borrowedBooks[9].getBorrowStatus()) {
-                System.out.println("Book name:");
+                System.out.print("Book name:");
 
                 Scanner scn = new Scanner(System.in);
                 String name = scn.nextLine();
@@ -129,7 +129,7 @@ public class Member {
     }
     public static void returnBook(int id) {
         if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
-                System.out.println("Book name:");
+                System.out.print("Book name:");
 
                 Scanner scn = new Scanner(System.in);
                 String name = scn.nextLine();
@@ -169,5 +169,32 @@ public class Member {
                 }
             }
         }
+    }
+    public static void searchMemberByName() {
+        System.out.print("Name: ");
+
+        Scanner scn = new Scanner(System.in);
+        String name = scn.nextLine();
+
+        int i;
+        boolean find = false;
+        for (i = 0; i < 100; i++) {
+            if (Library.members[i].exist) {
+                if (Library.members[i].name == name) {
+                    readMember(i);
+                    find = true;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Member with this name doesn't exist!");
+        }
+
+    }
+    public static void searchMemberByAge() {
+
+    }
+    public static void searchMemberByGender() {
+
     }
 }
