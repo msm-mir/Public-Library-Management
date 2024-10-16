@@ -77,11 +77,12 @@ public class Member {
     }
     public static void deleteMember(int id) {
         if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
-            for (int i = id; i > Member.idManager; i++) {
+            for (int i = id; i > Member.idManager - 1; i++) {
                 if (i != 99) Library.members[i] = Library.members[i + 1];
                 else Library.members[i] = null;
             }
             Member.idManager--;
+            Library.members[Member.idManager].exist = false;
             System.out.println("Member deleted successfully!");
         } else {
             System.out.println("Member doesn't exist!");
