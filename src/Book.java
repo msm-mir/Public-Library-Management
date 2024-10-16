@@ -107,7 +107,23 @@ public class Book {
         return -1;
     }
     public static void searchBookByName() {
+        System.out.print("Name: ");
 
+        Scanner scn = new Scanner(System.in);
+        String name = scn.nextLine();
+
+        boolean find = false;
+        for (int i = 0; i < 100; i++) {
+            if (Library.books[i].exist) {
+                if (Library.books[i].name == name) {
+                    readBook(name);
+                    find = true;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Book with this name doesn't exist!");
+        }
     }
     public static void searchBookByAuthor() {
 
