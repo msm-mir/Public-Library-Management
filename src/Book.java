@@ -126,7 +126,23 @@ public class Book {
         }
     }
     public static void searchBookByAuthor() {
+        System.out.print("Author: ");
 
+        Scanner scn = new Scanner(System.in);
+        String author = scn.nextLine();
+
+        boolean find = false;
+        for (int i = 0; i < 100; i++) {
+            if (Library.books[i].exist) {
+                if (Library.books[i].author == author) {
+                    readBook(Library.books[i].name);
+                    find = true;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Book with this author doesn't exist!");
+        }
     }
     public static void searchBookByPrice() {
 
