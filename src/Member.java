@@ -11,6 +11,7 @@ public class Member {
     private boolean exist = false;
     private Book borrowedBooks[] = new Book[10];
 
+    public Member() {}
     public Member(String name, int age, char gender) {
         this.name = name;
         this.age = age;

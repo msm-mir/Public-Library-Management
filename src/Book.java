@@ -13,6 +13,7 @@ public class Book {
     private LocalDate date;
     private int memberId;
 
+    public Book() {}
     Book(String name, String author, int price) {
         this.name = name;
         this.author = author;
