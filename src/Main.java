@@ -1,13 +1,103 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Library library = new Library();
 
-        while (true) {
+        System.out.println("Welcome To Our Library!");
 
+        while (true) {
+            printMenu();
+            System.out.print("Please Enter Your Order: ");
+
+            Scanner scn = new Scanner(System.in);
+            int cmd = scn.nextInt();
+
+            switch (cmd) {
+                case 1:
+                    Member.createMember();
+                    break;
+                case 2:
+                    Member.updateMember();
+                    break;
+                case 3:
+                    Member.deleteMember();
+                    break;
+                case 4:
+                    Member.readMember();
+                    break;
+                case 5:
+                    Book.createBook();
+                    break;
+                case 6:
+                    Book.updateBook();
+                    break;
+                case 7:
+                    Book.deleteBook();
+                    break;
+                case 8:
+                    Book.readBook();
+                    break;
+                case 9:
+                    printMemberSearchMenu();
+                    System.out.print("Please Enter Your Order: ");
+                    cmd = scn.nextInt();
+
+                    switch (cmd) {
+                        case 1:
+                            Member.searchMemberByName();
+                            break;
+                        case 2:
+                            Member.searchMemberByAge();
+                            break;
+                        case 3:
+                            Member.searchMemberByGender();
+                            break;
+                        default:
+                            System.out.println("Wrong Order!");
+                            break;
+                    }
+                case 10:
+                    printBookSearchMenu();
+                    System.out.print("Please Enter Your Order: ");
+                    cmd = scn.nextInt();
+
+                    switch (cmd) {
+                        case 1:
+                            Book.searchBookByName();
+                            break;
+                        case 2:
+                            Book.searchBookByAuthor();
+                            break;
+                        case 3:
+                            Book.searchBookByPrice();
+                            break;
+                        case 4:
+                            Book.searchBookByBorrowStatus();
+                            break;
+                        default:
+                            System.out.println("Wrong Order!");
+                            break;
+                    }
+                case 11:
+                    Member.borrowBook();
+                    break;
+                case 12:
+                    Member.returnBook();
+                    break;
+                case 13:
+                    Member.showOverBorrowedMembers();
+                    break;
+                case 14:
+                    return;
+                default:
+                    System.out.println("Wrong Order!");
+                    break;
+            }
         }
     }
 
-    public void printMenu() {
+    static void printMenu() {
         System.out.println("1.Add Member");
         System.out.println("2.Edit Member");
         System.out.println("3.Delete Member");
@@ -23,12 +113,12 @@ public class Main {
         System.out.println("13.Show Members Didn't Return Book");
         System.out.println("14.Exit");
     }
-    public void printMemberSearchMenu() {
+    static void printMemberSearchMenu() {
         System.out.println("1.Search Member By Name");
         System.out.println("2.Search Member By Age");
         System.out.println("3.Search Member By Gender");
     }
-    public void printBookSearchMenu() {
+    static void printBookSearchMenu() {
         System.out.println("1.Search Book By Name");
         System.out.println("2.Search Book By Author");
         System.out.println("3.Search Book By Price");
