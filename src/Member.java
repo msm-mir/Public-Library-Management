@@ -165,7 +165,6 @@ public class Member {
                             readMember(i);
                         }
                     }
-
                 }
             }
         }
