@@ -54,6 +54,7 @@ public class Member {
         } else {
             System.out.println("Library members are full!");
         }
+        System.out.println();
     }
     public static void readMember(int id) {
         if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
@@ -65,6 +66,7 @@ public class Member {
         } else {
             System.out.println("Member doesn't exist!");
         }
+        System.out.println();
     }
     public static void updateMember() {
         System.out.print("Please Enter The Member Id: ");
@@ -86,6 +88,7 @@ public class Member {
         } else {
             System.out.println("Member doesn't exist!");
         }
+        System.out.println();
     }
     public static void deleteMember() {
         System.out.print("Please Enter The Member Id: ");
@@ -100,6 +103,7 @@ public class Member {
         } else {
             System.out.println("Member doesn't exist!");
         }
+        System.out.println();
     }
     public static void borrowBook() {
         System.out.print("Please Enter The Member Id: ");
@@ -138,6 +142,7 @@ public class Member {
         } else {
             System.out.println("Member doesn't exist!");
         }
+        System.out.println();
     }
     public static void returnBook() {
         System.out.print("Please Enter The Member Id: ");
@@ -170,6 +175,7 @@ public class Member {
         } else {
             System.out.println("Member doesn't exist!");
         }
+        System.out.println();
     }
     public static void showOverBorrowedMembers() {
         for (int i = 0; i < 100; i++) {
@@ -201,6 +207,7 @@ public class Member {
         }
         if (!find) {
             System.out.println("Member with this name doesn't exist!");
+            System.out.println();
         }
     }
     public static void searchMemberByAge() {
@@ -220,6 +227,7 @@ public class Member {
         }
         if (!find) {
             System.out.println("Member with this age doesn't exist!");
+            System.out.println();
         }
     }
     public static void searchMemberByGender() {
@@ -239,6 +247,7 @@ public class Member {
         }
         if (!find) {
             System.out.println("Member with this gender doesn't exist!");
+            System.out.println();
         }
     }
 }

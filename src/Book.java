@@ -55,6 +55,7 @@ public class Book {
         } else {
             System.out.println("Library books are full!");
         }
+        System.out.println();
     }
     public static void readBook(String name) {
         int idx = search(name);
@@ -67,6 +68,7 @@ public class Book {
         } else {
             System.out.println("Book doesn't exist!");
         }
+        System.out.println();
     }
     public static void updateBook() {
         System.out.print("Please Enter The Book Name: ");
@@ -89,6 +91,7 @@ public class Book {
         } else {
             System.out.println("Book doesn't exist!");
         }
+        System.out.println();
     }
     public static void deleteBook() {
         System.out.print("Please Enter The Book Name: ");
@@ -107,6 +110,7 @@ public class Book {
         } else {
             System.out.println("Book doesn't exist!");
         }
+        System.out.println();
     }
 
     public static int search(String name) {
@@ -132,6 +136,7 @@ public class Book {
         }
         if (!find) {
             System.out.println("Book with this name doesn't exist!");
+            System.out.println();
         }
     }
     public static void searchBookByAuthor() {
@@ -151,6 +156,7 @@ public class Book {
         }
         if (!find) {
             System.out.println("Book with this author doesn't exist!");
+            System.out.println();
         }
     }
     public static void searchBookByPrice() {
@@ -170,6 +176,7 @@ public class Book {
         }
         if (!find) {
             System.out.println("Book with a lower price doesn't exist!");
+            System.out.println();
         }
     }
     public static void searchBookByBorrowStatus() {
@@ -184,6 +191,7 @@ public class Book {
         }
         if (!find) {
             System.out.println("Free book doesn't exist!");
+            System.out.println();
         }
     }
 }
