@@ -55,7 +55,12 @@ public class Book {
             System.out.println("Library books are full!");
         }
     }
-    public static void readBook(String name) {
+    public static void readBook() {
+        System.out.print("Please Enter The Book Name: ");
+
+        Scanner scn = new Scanner(System.in);
+        String name = scn.nextLine();
+
         int idx = search(name);
         if (idx != -1) {
             Book tmp = Library.books[idx];
@@ -67,11 +72,14 @@ public class Book {
             System.out.println("Book doesn't exist!");
         }
     }
-    public static void updateBook(String name) {
+    public static void updateBook() {
+        System.out.print("Please Enter The Book Name: ");
+
+        Scanner scn = new Scanner(System.in);
+        String name = scn.nextLine();
+
         int idx = search(name);
         if (idx != -1) {
-            Scanner scn = new Scanner(System.in);
-
             System.out.print("Name: ");
             Library.books[idx].name = scn.nextLine();
 
@@ -86,7 +94,12 @@ public class Book {
             System.out.println("Book doesn't exist!");
         }
     }
-    public static void deleteBook(String name) {
+    public static void deleteBook() {
+        System.out.print("Please Enter The Book Name: ");
+
+        Scanner scn = new Scanner(System.in);
+        String name = scn.nextLine();
+
         int idx = search(name);
         if (idx != -1) {
             for (int i = idx; i > idxManager - 1; i++) {
