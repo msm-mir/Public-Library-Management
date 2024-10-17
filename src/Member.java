@@ -65,10 +65,13 @@ public class Member {
             System.out.println("Member doesn't exist!");
         }
     }
-    public static void updateMember(int id) {
-        if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
-            Scanner scn = new Scanner(System.in);
+    public static void updateMember() {
+        System.out.print("Please Enter The Member Id: ");
 
+        Scanner scn = new Scanner(System.in);
+        int id = scn.nextInt();
+
+        if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
             System.out.print("Name: ");
             Library.members[id].name = scn.nextLine();
 
@@ -83,7 +86,12 @@ public class Member {
             System.out.println("Member doesn't exist!");
         }
     }
-    public static void deleteMember(int id) {
+    public static void deleteMember() {
+        System.out.print("Please Enter The Member Id: ");
+
+        Scanner scn = new Scanner(System.in);
+        int id = scn.nextInt();
+
         if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
             Library.members[id].exist = false;
             setIdManager();
@@ -92,12 +100,15 @@ public class Member {
             System.out.println("Member doesn't exist!");
         }
     }
-    public static void borrowBook(int id) {
+    public static void borrowBook() {
+        System.out.print("Please Enter The Member Id: ");
+
+        Scanner scn = new Scanner(System.in);
+        int id = scn.nextInt();
+
         if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
             if (!Library.members[id].borrowedBooks[9].getBorrowStatus()) {
                 System.out.print("Book name:");
-
-                Scanner scn = new Scanner(System.in);
                 String name = scn.nextLine();
 
                 for (int i = 0; i < 100; i++) {
@@ -127,11 +138,14 @@ public class Member {
             System.out.println("Member doesn't exist!");
         }
     }
-    public static void returnBook(int id) {
+    public static void returnBook() {
+        System.out.print("Please Enter The Member Id: ");
+
+        Scanner scn = new Scanner(System.in);
+        int id = scn.nextInt();
+
         if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
                 System.out.print("Book name:");
-
-                Scanner scn = new Scanner(System.in);
                 String name = scn.nextLine();
 
                 for (int i = 0; i < 100; i++) {
@@ -156,7 +170,7 @@ public class Member {
             System.out.println("Member doesn't exist!");
         }
     }
-    public static void showOverBorrowedMembers(int id) {
+    public static void showOverBorrowedMembers() {
         for (int i = 0; i < 100; i++) {
             if (Library.members[i].exist) {
                 for (int j = 0; j < 10; j++) {

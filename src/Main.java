@@ -24,7 +24,7 @@ public class Main {
                     Member.deleteMember();
                     break;
                 case 4:
-                    Member.readMember();
+                    readMember();
                     break;
                 case 5:
                     Book.createBook();
@@ -36,7 +36,7 @@ public class Main {
                     Book.deleteBook();
                     break;
                 case 8:
-                    Book.readBook();
+                    readBook();
                     break;
                 case 9:
                     printMemberSearchMenu();
@@ -123,5 +123,22 @@ public class Main {
         System.out.println("2.Search Book By Author");
         System.out.println("3.Search Book By Price");
         System.out.println("4.Search Book By Borrow Status");
+    }
+
+    static void readMember() {
+        System.out.print("Please Enter Member Id: ");
+
+        Scanner scn = new Scanner(System.in);
+        int id = scn.nextInt();
+
+        Member.readMember(id);
+    }
+    static void readBook() {
+        System.out.print("Please Enter The Book Name: ");
+
+        Scanner scn = new Scanner(System.in);
+        String name = scn.nextLine();
+
+        Book.readBook(name);
     }
 }

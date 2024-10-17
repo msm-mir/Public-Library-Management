@@ -55,12 +55,7 @@ public class Book {
             System.out.println("Library books are full!");
         }
     }
-    public static void readBook() {
-        System.out.print("Please Enter The Book Name: ");
-
-        Scanner scn = new Scanner(System.in);
-        String name = scn.nextLine();
-
+    public static void readBook(String name) {
         int idx = search(name);
         if (idx != -1) {
             Book tmp = Library.books[idx];
