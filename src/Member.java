@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Scanner;
 
-public class Member {
+public class Member extends Person {
     private String name;
     private int age;
     private char gender;
