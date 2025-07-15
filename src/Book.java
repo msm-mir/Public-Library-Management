@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Scanner;
 
-public class Book {
+public class Book implements Entity {
     private String name;
     private String author;
     private int price;
