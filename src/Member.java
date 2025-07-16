@@ -161,20 +161,17 @@ public class Member implements Entity {
         Scanner scn = new Scanner(System.in);
         Gender gender = Gender.valueOf(scn.next());
 
-        boolean find = false;
         for (int i = 0; i < 100; i++) {
             if (LibraryImpl.members[i].exist) {
                 if (LibraryImpl.members[i].gender == gender) {
                     readMember(i);
-                    find = true;
-                    break;
+                    return;
                 }
             }
         }
-        if (!find) {
-            System.out.println("Member with this gender doesn't exist!");
-            System.out.println();
-        }
+        
+        System.out.println("Member with this gender doesn't exist!");
+        System.out.println();
     }
 
     public static void borrowBook() {
