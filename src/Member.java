@@ -221,27 +221,25 @@ public class Member implements Entity {
         System.out.print("Please Enter The Member Id: ");
 
         Scanner scn = new Scanner(System.in);
-        int id = scn.nextInt();
+        int memberId = scn.nextInt();
 
-        if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
+        if ((memberId >= 0 && memberId < 100) && (LibraryImpl.members[memberId].exist)) {
                 System.out.print("Book name:");
-                String name = scn.nextLine();
+                String bookName = scn.nextLine();
 
-                for (int i = 0; i < 100; i++) {
-                    if (Objects.equals(LibraryImpl.books[i].getName(), name)) {
-                        if (!LibraryImpl.books[i].getBorrowStatus()) {
-                            System.out.println("This book isn't borrowed!");
-                        } else {
-                            for (int j = 0; j < 10; j++) {
-                                if (!LibraryImpl.members[id].borrowedBooks[j].getBorrowStatus()) {
-                                    if (Objects.equals(LibraryImpl.members[id].borrowedBooks[j].getName(), name)) {
-                                        LibraryImpl.members[i].borrowedBooks[j].setBorrowStatus(false);
-                                        return;
-                                    }
+                int bookIdx = Book.search(bookName);
+                if (bookIdx != -1) {
+                    if (!LibraryImpl.books[bookIdx].getBorrowStatus()) {
+                        System.out.println("This book isn't borrowed!");
+                    } else {
+                        for (int j = 0; j < 10; j++) {
+                            if (!LibraryImpl.members[memberId].borrowedBooks[j].getBorrowStatus()) {
+                                if (Objects.equals(LibraryImpl.members[memberId].borrowedBooks[j].getName(), bookName)) {
+                                    LibraryImpl.members[memberId].borrowedBooks[j].setBorrowStatus(false);
+                                    return;
                                 }
                             }
                         }
-                        return;
                     }
                 }
                 System.out.println("Book doesn't exist!");
