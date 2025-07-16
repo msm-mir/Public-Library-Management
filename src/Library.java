@@ -5,7 +5,4 @@ interface Library {
     Entity[] find(Entity example);
     void borrow(Member member, Book book);
     void giveBack(Member member, Book book);
-
-    static Member[] members = null;
-    static Book[] books = null;
 }

@@ -1,32 +1,33 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Member extends Person {
     private String name;
     private int age;
-    private char gender;
-    private int id;
+    private Gender gender;
+    private int ID;
     private static int idManager = 0;
     private boolean exist = false;
-    private Book borrowedBooks[] = new Book[10];
+    private Book[] borrowedBooks;
 
     public Member() {}
-    public Member(String name, int age, char gender) {
+    public Member(String name, int age, Gender gender) {
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.id = idManager++;
+        this.ID = idManager++;
         this.exist = true;
     }
 
     public String getName() { return this.name; }
     public int getAge() { return this.age; }
-    public char getGender() { return this.gender; }
-    public int getId() { return this.id; }
+    public Gender getGender() { return this.gender; }
+    public int getID() { return this.ID; }
     public static void setIdManager() {
         for (int i = 0; i < 100; i++) {
-            if (!Library.members[i].exist) idManager = i;
+            if (!LibraryImpl.members[i].exist) idManager = i;
         }
         idManager = 100;
     }
@@ -39,15 +40,15 @@ public class Member extends Person {
             System.out.println("Member(" + id + "):");
 
             System.out.print("Name: ");
-            Library.members[id].name = scn.nextLine();
+            LibraryImpl.members[id].name = scn.nextLine();
 
             System.out.print("Age: ");
-            Library.members[id].age = scn.nextInt();
+            LibraryImpl.members[id].age = scn.nextInt();
 
             System.out.print("Gender: ");
-            Library.members[id].gender = scn.next().charAt(0);
+            LibraryImpl.members[id].gender = Gender.valueOf(scn.nextLine());
 
-            Library.members[id].exist = true;
+            LibraryImpl.members[id].exist = true;
             setIdManager();
 
             System.out.println("Member added successfully!");
@@ -56,9 +57,10 @@ public class Member extends Person {
         }
         System.out.println();
     }
+
     public static void readMember(int id) {
-        if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
-            Member tmp = Library.members[id];
+        if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
+            Member tmp = LibraryImpl.members[id];
             System.out.println("Member(" + id + "):");
             System.out.println("name: " + tmp.name + ",");
             System.out.println("age: " + tmp.age + ",");
@@ -68,21 +70,22 @@ public class Member extends Person {
         }
         System.out.println();
     }
+
     public static void updateMember() {
         System.out.print("Please Enter The Member Id: ");
 
         Scanner scn = new Scanner(System.in);
         int id = scn.nextInt();
 
-        if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
+        if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
             System.out.print("Name: ");
-            Library.members[id].name = scn.nextLine();
+            LibraryImpl.members[id].name = scn.nextLine();
 
             System.out.print("Age: ");
-            Library.members[id].age = scn.nextInt();
+            LibraryImpl.members[id].age = scn.nextInt();
 
             System.out.print("Gender: ");
-            Library.members[id].gender = scn.next().charAt(0);
+            LibraryImpl.members[id].gender = Gender.valueOf(scn.next());
 
             System.out.println("Member updated successfully!");
         } else {
@@ -90,14 +93,15 @@ public class Member extends Person {
         }
         System.out.println();
     }
+
     public static void deleteMember() {
         System.out.print("Please Enter The Member Id: ");
 
         Scanner scn = new Scanner(System.in);
         int id = scn.nextInt();
 
-        if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
-            Library.members[id].exist = false;
+        if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
+            LibraryImpl.members[id].exist = false;
             setIdManager();
             System.out.println("Member deleted successfully!");
         } else {
@@ -105,28 +109,29 @@ public class Member extends Person {
         }
         System.out.println();
     }
+
     public static void borrowBook() {
         System.out.print("Please Enter The Member Id: ");
 
         Scanner scn = new Scanner(System.in);
         int id = scn.nextInt();
 
-        if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
-            if (!Library.members[id].borrowedBooks[9].getBorrowStatus()) {
+        if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
+            if (!LibraryImpl.members[id].borrowedBooks[9].getBorrowStatus()) {
                 System.out.print("Book name:");
                 String name = scn.nextLine();
 
                 for (int i = 0; i < 100; i++) {
-                    if (Library.books[i].getName() == name) {
-                        if (Library.books[i].getBorrowStatus()) {
+                    if (Objects.equals(LibraryImpl.books[i].getName(), name)) {
+                        if (LibraryImpl.books[i].getBorrowStatus()) {
                             System.out.println("This book is already borrowed!");
                         } else {
                             for (int j = 0; j < 10; j++) {
-                                if (!Library.members[id].borrowedBooks[j].getBorrowStatus()) {
-                                    Library.members[id].borrowedBooks[j].setDate(LocalDate.now().plus(Period.ofMonths(1)));
-                                    Library.members[id].borrowedBooks[j].setBorrowStatus(true);
-                                    Library.members[id].borrowedBooks[j].setMemberId(id);
-                                    Library.members[id].borrowedBooks[j] = Library.books[i];
+                                if (!LibraryImpl.members[id].borrowedBooks[j].getBorrowStatus()) {
+                                    LibraryImpl.members[id].borrowedBooks[j].setDate(LocalDate.now().plus(Period.ofMonths(1)));
+                                    LibraryImpl.members[id].borrowedBooks[j].setBorrowStatus(true);
+                                    LibraryImpl.members[id].borrowedBooks[j].setMemberID(id);
+                                    LibraryImpl.members[id].borrowedBooks[j] = LibraryImpl.books[i];
                                     System.out.println("Book borrowed successfully!");
                                     return;
                                 }
@@ -144,25 +149,26 @@ public class Member extends Person {
         }
         System.out.println();
     }
+
     public static void returnBook() {
         System.out.print("Please Enter The Member Id: ");
 
         Scanner scn = new Scanner(System.in);
         int id = scn.nextInt();
 
-        if ((id >= 0 && id < 100) && (Library.members[id].exist)) {
+        if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
                 System.out.print("Book name:");
                 String name = scn.nextLine();
 
                 for (int i = 0; i < 100; i++) {
-                    if (Library.books[i].getName() == name) {
-                        if (!Library.books[i].getBorrowStatus()) {
+                    if (Objects.equals(LibraryImpl.books[i].getName(), name)) {
+                        if (!LibraryImpl.books[i].getBorrowStatus()) {
                             System.out.println("This book isn't borrowed!");
                         } else {
                             for (int j = 0; j < 10; j++) {
-                                if (!Library.members[id].borrowedBooks[j].getBorrowStatus()) {
-                                    if (Library.members[id].borrowedBooks[j].getName() == name) {
-                                        Library.members[i].borrowedBooks[j].setBorrowStatus(false);
+                                if (!LibraryImpl.members[id].borrowedBooks[j].getBorrowStatus()) {
+                                    if (Objects.equals(LibraryImpl.members[id].borrowedBooks[j].getName(), name)) {
+                                        LibraryImpl.members[i].borrowedBooks[j].setBorrowStatus(false);
                                         return;
                                     }
                                 }
@@ -177,12 +183,13 @@ public class Member extends Person {
         }
         System.out.println();
     }
+
     public static void showOverBorrowedMembers() {
         for (int i = 0; i < 100; i++) {
-            if (Library.members[i].exist) {
+            if (LibraryImpl.members[i].exist) {
                 for (int j = 0; j < 10; j++) {
-                    if (Library.members[i].borrowedBooks[j].getBorrowStatus()) {
-                        if (LocalDate.now().isBefore(Library.members[i].borrowedBooks[j].getDate())) {
+                    if (LibraryImpl.members[i].borrowedBooks[j].getBorrowStatus()) {
+                        if (LocalDate.now().isBefore(LibraryImpl.members[i].borrowedBooks[j].getDate())) {
                             readMember(i);
                         }
                     }
@@ -190,6 +197,7 @@ public class Member extends Person {
             }
         }
     }
+
     public static void searchMemberByName() {
         System.out.print("Name: ");
 
@@ -198,10 +206,11 @@ public class Member extends Person {
 
         boolean find = false;
         for (int i = 0; i < 100; i++) {
-            if (Library.members[i].exist) {
-                if (Library.members[i].name == name) {
+            if (LibraryImpl.members[i].exist) {
+                if (Objects.equals(LibraryImpl.members[i].name, name)) {
                     readMember(i);
                     find = true;
+                    break;
                 }
             }
         }
@@ -210,6 +219,7 @@ public class Member extends Person {
             System.out.println();
         }
     }
+
     public static void searchMemberByAge() {
         System.out.print("Age: ");
 
@@ -218,10 +228,11 @@ public class Member extends Person {
 
         boolean find = false;
         for (int i = 0; i < 100; i++) {
-            if (Library.members[i].exist) {
-                if (Library.members[i].age == age) {
+            if (LibraryImpl.members[i].exist) {
+                if (LibraryImpl.members[i].age == age) {
                     readMember(i);
                     find = true;
+                    break;
                 }
             }
         }
@@ -230,18 +241,20 @@ public class Member extends Person {
             System.out.println();
         }
     }
+
     public static void searchMemberByGender() {
         System.out.print("Gender: ");
 
         Scanner scn = new Scanner(System.in);
-        char gender = scn.next().charAt(0);
+        Gender gender = Gender.valueOf(scn.next());
 
         boolean find = false;
         for (int i = 0; i < 100; i++) {
-            if (Library.members[i].exist) {
-                if (Library.members[i].gender == gender) {
+            if (LibraryImpl.members[i].exist) {
+                if (LibraryImpl.members[i].gender == gender) {
                     readMember(i);
                     find = true;
+                    break;
                 }
             }
         }

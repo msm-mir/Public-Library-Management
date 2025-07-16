@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Library library = new Library();
+        LibraryImpl library = new LibraryImpl();
 
         System.out.println("Welcome To Our Library!");
 
@@ -122,12 +122,14 @@ public class Main {
         System.out.print("13.Show Members Didn't Return Book    ");
         System.out.println("14.Exit");
     }
+
     static void printMemberSearchMenu() {
         System.out.print("1.Search Member By Name    ");
         System.out.print("2.Search Member By Age    ");
         System.out.print("3.Search Member By Gender    ");
         System.out.println("4.back");
     }
+
     static void printBookSearchMenu() {
         System.out.print("1.Search Book By Name    ");
         System.out.println("2.Search Book By Author");
@@ -144,6 +146,7 @@ public class Main {
 
         Member.readMember(id);
     }
+
     static void readBook() {
         System.out.print("Please Enter The Book Name: ");
 
