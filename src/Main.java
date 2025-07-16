@@ -15,7 +15,11 @@ public class Main {
 
             switch (cmd) {
                 case 1:
-                    Member.createMember();
+                    try {
+                        library.save(Member.createMember());
+                    } catch (EntityNotFoundException exception) {
+
+                    }
                     break;
                 case 2:
                     Member.updateMember();

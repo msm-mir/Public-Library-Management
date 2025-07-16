@@ -13,11 +13,27 @@ public class LibraryImpl implements Library {
         }
     }
 
+    private static int memberIdx = 0;
+    private static int bookIdx = 0;
+
     public LibraryImpl() {}
 
-    @Override
-    public void save(Entity entity) {
+    public static void setMemberIdx(int id) { memberIdx = id; }
+    public static int getMemberIdx() { return memberIdx; }
+    public static void setBookIdx(int id) { bookIdx = id; }
+    public static int getBookIdx() { return bookIdx; }
 
+    @Override
+    public void save(Entity entity) throws EntityNotFoundException {
+        if (entity instanceof Member) {
+            members[memberIdx] = (Member) entity;
+            memberIdx++;
+        } else if (entity instanceof Book) {
+            books[bookIdx] = (Book) entity;
+            bookIdx++;
+        } else {
+            throw new EntityNotFoundException();
+        }
     }
 
     @Override

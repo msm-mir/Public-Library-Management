@@ -8,7 +8,6 @@ public class Member implements Entity {
     private int age;
     private Gender gender;
     private int ID;
-    private static int idManager = 0;
     private boolean exist = false;
     private Book[] borrowedBooks = new Book[10];
     {
@@ -22,37 +21,40 @@ public class Member implements Entity {
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.ID = idManager++;
+        this.ID = LibraryImpl.getMemberIdx();
         this.exist = true;
+        LibraryImpl.setMemberIdx(LibraryImpl.getMemberIdx() + 1);
     }
 
     public String getName() { return this.name; }
     public int getAge() { return this.age; }
     public Gender getGender() { return this.gender; }
-    public int getID() { return this.ID; }
-    public static void setIdManager(int id) { idManager = id; }
+    @Override
+    public int getId() { return this.ID; }
 
-    public static void createMember() {
+    public static Member createMember() {
         Scanner scn = new Scanner(System.in);
 
-        if (idManager != 100) {
-            System.out.println("Member(" + idManager + "):");
+        int memberId = LibraryImpl.getMemberIdx();
+        if (memberId != 100) {
+            Member member = new Member();
+            System.out.println("Member(" + memberId + "):");
 
             System.out.print("Name: ");
-            LibraryImpl.members[idManager].name = scn.nextLine();
+            member.name = scn.nextLine();
 
-            if (search(LibraryImpl.members[idManager].name) == -1) {
+            if (search(member.name) == -1) {
                 System.out.print("Age: ");
-                LibraryImpl.members[idManager].age = scn.nextInt();
+                member.age = scn.nextInt();
                 scn.nextLine();
 
                 System.out.print("Gender: ");
-                LibraryImpl.members[idManager].gender = Gender.valueOf(scn.nextLine());
+                member.gender = Gender.valueOf(scn.nextLine());
 
-                LibraryImpl.members[idManager].exist = true;
-                setIdManager(idManager + 1);
-
+                member.exist = true;
                 System.out.println("Member added successfully!");
+                System.out.println();
+                return member;
             } else {
                 System.out.println("Member already exists!");
             }
@@ -60,6 +62,7 @@ public class Member implements Entity {
             System.out.println("Library members are full!");
         }
         System.out.println();
+        return null;
     }
 
     public static void updateMember() {
@@ -94,7 +97,7 @@ public class Member implements Entity {
 
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
             LibraryImpl.members[id].exist = false;
-            setIdManager(id);
+            //setIdManager(id);
             System.out.println("Member deleted successfully!");
         } else {
             System.out.println("Member doesn't exist!");
@@ -230,10 +233,10 @@ public class Member implements Entity {
                     if (!LibraryImpl.books[bookIdx].getBorrowStatus()) {
                         System.out.println("This book isn't borrowed!");
                     } else {
-                        for (int j = 0; j < 10; j++) {
-                            if (!LibraryImpl.members[memberId].borrowedBooks[j].getBorrowStatus()) {
-                                if (Objects.equals(LibraryImpl.members[memberId].borrowedBooks[j].getName(), bookName)) {
-                                    LibraryImpl.members[memberId].borrowedBooks[j].setBorrowStatus(false);
+                        for (int i = 0; i < 10; i++) {
+                            if (!LibraryImpl.members[memberId].borrowedBooks[i].getBorrowStatus()) {
+                                if (Objects.equals(LibraryImpl.members[memberId].borrowedBooks[i].getName(), bookName)) {
+                                    LibraryImpl.members[memberId].borrowedBooks[i].setBorrowStatus(false);
                                     return;
                                 }
                             }
@@ -259,11 +262,6 @@ public class Member implements Entity {
                 }
             }
         }
-    }
-
-    @Override
-    public int getIdManager() {
-        return idManager;
     }
 
     @Override

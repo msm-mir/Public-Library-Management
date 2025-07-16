@@ -197,9 +197,7 @@ public class Book implements Entity {
     }
 
     @Override
-    public int getIdManager() {
-        return idxManager;
-    }
+    public int getId() { return idxManager; }
 
     @Override
     public void readFromConsole() throws BadEntityException {

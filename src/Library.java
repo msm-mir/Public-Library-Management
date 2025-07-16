@@ -1,5 +1,5 @@
 interface Library {
-    void save(Entity entity);
+    void save(Entity entity) throws EntityNotFoundException;
     void update(Entity entity) throws EntityNotFoundException;
     void delete(Entity entity) throws EntityNotFoundException;
     Entity[] find(Entity example);
