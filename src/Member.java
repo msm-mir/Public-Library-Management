@@ -25,15 +25,7 @@ public class Member implements Entity {
     public int getAge() { return this.age; }
     public Gender getGender() { return this.gender; }
     public int getID() { return this.ID; }
-    public static void setIdManager() {
-        for (int i = 0; i < 100; i++) {
-            if (!LibraryImpl.members[i].exist) {
-                idManager = i;
-                return;
-            }
-        }
-        idManager = 100;
-    }
+    public static void setIdManager(int id) { idManager = id; }
 
     public static void createMember() {
         Scanner scn = new Scanner(System.in);
@@ -53,7 +45,7 @@ public class Member implements Entity {
             LibraryImpl.members[id].gender = Gender.valueOf(scn.nextLine());
 
             LibraryImpl.members[id].exist = true;
-            setIdManager();
+            setIdManager(idManager + 1);
 
             System.out.println("Member added successfully!");
         } else {
@@ -87,6 +79,7 @@ public class Member implements Entity {
 
             System.out.print("Age: ");
             LibraryImpl.members[id].age = scn.nextInt();
+            scn.nextLine();
 
             System.out.print("Gender: ");
             LibraryImpl.members[id].gender = Gender.valueOf(scn.next());
@@ -106,7 +99,7 @@ public class Member implements Entity {
 
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
             LibraryImpl.members[id].exist = false;
-            setIdManager();
+            setIdManager(id);
             System.out.println("Member deleted successfully!");
         } else {
             System.out.println("Member doesn't exist!");
