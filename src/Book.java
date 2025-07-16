@@ -177,16 +177,22 @@ public class Book implements Entity {
     @Override
     public Object readFromConsole(Object object) throws BadEntityException {
         Scanner scn = new Scanner(System.in);
+        String input = scn.nextLine();
 
         if (object instanceof String) {
-            return scn.nextLine();
+            if (input.matches("[a-zA-Z]+")) {
+                return input;
+            } else {
+                throw new BadEntityException("Please enter letters only!");
+            }
         } else if (object instanceof Integer) {
-            Integer i = scn.nextInt();
-            scn.nextLine();
-            return i;
-        } else {
-            throw new BadEntityException();
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException exception) {
+                throw new BadEntityException("Please enter numbers only!");
+            }
         }
+        return null;
     }
 
     @Override
