@@ -184,20 +184,17 @@ public class Book implements Entity {
     }
 
     public static void searchBookByBorrowStatus() {
-        boolean find = false;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < idxManager; i++) {
             if (LibraryImpl.books[i].exist) {
                 if (!LibraryImpl.books[i].borrowStatus) {
                     readBook(LibraryImpl.books[i].name);
-                    find = true;
-                    break;
+                    return;
                 }
             }
         }
-        if (!find) {
-            System.out.println("Free book doesn't exist!");
-            System.out.println();
-        }
+        
+        System.out.println("Free book doesn't exist!");
+        System.out.println();
     }
 
     @Override
