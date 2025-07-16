@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws BadEntityException {
+    public static void main(String[] args) {
         LibraryImpl library = new LibraryImpl();
 
         System.out.println("Welcome To Our Library!");
@@ -16,11 +16,14 @@ public class Main {
             switch (cmd) {
                 case 1:
                     try {
-                        library.save(Member.createMember());
+                        Member m = Member.createMember();
+                        if (m == null) throw new NullPointerException();
+                        library.save(m);
                     } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
                     }
                     break;
+
                 case 2:
                     try {
                         Pair<Member, Integer> p = Member.updateMember();
@@ -30,6 +33,7 @@ public class Main {
                         System.out.println(exception.getMessage());
                     }
                     break;
+
                 case 3:
                     try {
                         Pair<Member, Integer> p = Member.deleteMember();
@@ -39,37 +43,45 @@ public class Main {
                         System.out.println(exception.getMessage());
                     }
                     break;
+
                 case 4:
                     readMember();
                     break;
+
                 case 5:
                     try {
-                        library.save(Book.createBook());
-                    } catch (EntityNotFoundException exception) {
+                        Book b = Book.createBook();
+                        if (b == null) throw new NullPointerException();
+                        library.save(b);
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
                     }
                     break;
+
                 case 6:
                     try {
                         Pair<Book, Integer> p = Book.updateBook();
                         if (p == null) throw new NullPointerException();
                         library.update(p.left, p.right);
-                    } catch (EntityNotFoundException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
                     }
                     break;
+
                 case 7:
                     try {
                         Pair<Book, Integer> p = Book.deleteBook();
                         if (p == null) throw new NullPointerException();
                         library.delete(p.left, p.right);
-                    } catch (EntityNotFoundException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
                     }
                     break;
+
                 case 8:
                     readBook();
                     break;
+
                 case 9:
                     printMemberSearchMenu();
                     System.out.print("Please Enter Your Order: ");
@@ -77,22 +89,39 @@ public class Main {
 
                     switch (cmd) {
                         case 1:
-                            Member.searchMemberByName();
+                            try {
+                                Member.searchMemberByName();
+                            } catch (BadEntityException exception) {
+                                System.out.println(exception.getMessage());
+                            }
                             break;
+
                         case 2:
-                            Member.searchMemberByAge();
+                            try {
+                                Member.searchMemberByAge();
+                            } catch (BadEntityException exception) {
+                                System.out.println(exception.getMessage());
+                            }
                             break;
+
                         case 3:
-                            Member.searchMemberByGender();
+                            try {
+                                Member.searchMemberByGender();
+                            } catch (BadEntityException exception) {
+                                System.out.println(exception.getMessage());
+                            }
                             break;
+
                         case 4:
                             break;
+
                         default:
                             System.out.println("Wrong Order!");
                             System.out.println();
                             break;
                     }
                     break;
+
                 case 10:
                     printBookSearchMenu();
                     System.out.print("Please Enter Your Order: ");
@@ -100,36 +129,66 @@ public class Main {
 
                     switch (cmd) {
                         case 1:
-                            Book.searchBookByName();
+                            try {
+                                Book.searchBookByName();
+                            } catch (BadEntityException exception) {
+                                System.out.println(exception.getMessage());
+                            }
                             break;
+
                         case 2:
-                            Book.searchBookByAuthor();
+                            try {
+                                Book.searchBookByAuthor();
+                            } catch (BadEntityException exception) {
+                                System.out.println(exception.getMessage());
+                            }
                             break;
+
                         case 3:
-                            Book.searchBookByPrice();
+                            try {
+                                Book.searchBookByPrice();
+                            } catch (BadEntityException exception) {
+                                System.out.println(exception.getMessage());
+                            }
                             break;
+
                         case 4:
                             Book.searchBookByBorrowStatus();
                             break;
+
                         case 5:
                             break;
+
                         default:
                             System.out.println("Wrong Order!");
                             System.out.println();
                             break;
                     }
                     break;
+
                 case 11:
-                    Member.borrowBook();
+                    try {
+                        Member.borrowBook();
+                    } catch (BadEntityException exception) {
+                        System.out.println(exception.getMessage());
+                    }
                     break;
+
                 case 12:
-                    Member.returnBook();
+                    try {
+                        Member.returnBook();
+                    } catch (BadEntityException exception) {
+                        System.out.println(exception.getMessage());
+                    }
                     break;
+
                 case 13:
                     Member.showOverBorrowedMembers();
                     break;
+
                 case 14:
                     return;
+
                 default:
                     System.out.println("Wrong Order!");
                     System.out.println();

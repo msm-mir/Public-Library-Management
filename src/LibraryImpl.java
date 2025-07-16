@@ -22,9 +22,7 @@ public class LibraryImpl implements Library {
 
     public LibraryImpl() {}
 
-    public static void setMemberIdx(int id) { memberIdx = id; }
     public static int getMemberIdx() { return memberIdx; }
-    public static void setBookIdx(int id) { bookIdx = id; }
     public static int getBookIdx() { return bookIdx; }
 
     @Override

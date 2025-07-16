@@ -234,7 +234,7 @@ public class Member implements Entity {
             scn.nextLine();
             return i;
         } else {
-            throw new BadEntityException();
+            throw new BadEntityException("");
         }
     }
 
