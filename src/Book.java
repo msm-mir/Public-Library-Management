@@ -121,7 +121,7 @@ public class Book implements Entity {
     }
 
     public static int search(String name) {
-        for (int i = 0; i < idxManager; i++) {
+        for (int i = 0; i < 100; i++) {
             if (Objects.equals(LibraryImpl.books[i].name, name)) return i;
         }
         return -1;

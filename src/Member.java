@@ -195,6 +195,13 @@ public class Member implements Entity {
         }
     }
 
+    public static int search(String name) {
+        for (int i = 0; i < 100; i++) {
+            if (Objects.equals(LibraryImpl.members[i].name, name)) return i;
+        }
+        return -1;
+    }
+
     public static void searchMemberByName() {
         System.out.print("Name: ");
 
