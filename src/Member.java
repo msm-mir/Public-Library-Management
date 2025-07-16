@@ -127,11 +127,11 @@ public class Member implements Entity {
             if (LibraryImpl.members[i].exist) {
                 if (Objects.equals(LibraryImpl.members[i].name, name)) {
                     readMember(i);
-                    break;
+                    return;
                 }
             }
         }
-        
+
         System.out.println("Member with this name doesn't exist!");
         System.out.println();
     }
@@ -142,20 +142,17 @@ public class Member implements Entity {
         Scanner scn = new Scanner(System.in);
         int age = scn.nextInt();
 
-        boolean find = false;
         for (int i = 0; i < 100; i++) {
             if (LibraryImpl.members[i].exist) {
                 if (LibraryImpl.members[i].age == age) {
                     readMember(i);
-                    find = true;
-                    break;
+                    return;
                 }
             }
         }
-        if (!find) {
-            System.out.println("Member with this age doesn't exist!");
-            System.out.println();
-        }
+
+        System.out.println("Member with this age doesn't exist!");
+        System.out.println();
     }
 
     public static void searchMemberByGender() {
