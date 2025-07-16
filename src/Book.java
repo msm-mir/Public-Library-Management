@@ -132,20 +132,17 @@ public class Book implements Entity {
         Scanner scn = new Scanner(System.in);
         String name = scn.nextLine();
 
-        boolean find = false;
         for (int i = 0; i < 100; i++) {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].name, name)) {
                     readBook(name);
-                    find = true;
-                    break;
+                    return;
                 }
             }
         }
-        if (!find) {
-            System.out.println("Book with this name doesn't exist!");
-            System.out.println();
-        }
+        
+        System.out.println("Book with this name doesn't exist!");
+        System.out.println();
     }
 
     public static void searchBookByAuthor() {

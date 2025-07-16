@@ -169,7 +169,7 @@ public class Member implements Entity {
                 }
             }
         }
-        
+
         System.out.println("Member with this gender doesn't exist!");
         System.out.println();
     }
