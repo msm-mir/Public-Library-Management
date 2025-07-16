@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 public class LibraryImpl implements Library {
@@ -83,8 +85,11 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void borrow(Member member, Book book) {
-
+    public void borrow(Member member, Book book, int idx) {
+        member.getBorrowBooks(idx).setDate(LocalDate.now().plus(Period.ofMonths(1)));
+        member.getBorrowBooks(idx).setBorrowStatus(true);
+        member.getBorrowBooks(idx).setMemberID(find(new Member(), member.getName()).getId());
+        member.setBorrowedBooks(books[bookIdx], idx);
     }
 
     @Override

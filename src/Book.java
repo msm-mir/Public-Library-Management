@@ -46,8 +46,7 @@ public class Book implements Entity {
             System.out.print("Name: ");
             book.name = scn.nextLine();
 
-            LibraryImpl library = new LibraryImpl();
-            if (((Book) library.find(new Book(), book.name)).getId() == -1) {
+            if (new LibraryImpl().find(new Book(), book.name).getId() == -1) {
                 System.out.print("Author: ");
                 book.author = scn.nextLine();
 
@@ -76,8 +75,7 @@ public class Book implements Entity {
         Scanner scn = new Scanner(System.in);
         String name = scn.nextLine();
 
-        LibraryImpl library = new LibraryImpl();
-        int idx = ((Book) library.find(new Book(), name)).getId();
+        int idx = new LibraryImpl().find(new Book(), name).getId();
         if (idx != -1) {
             Book book = new Book();
 
@@ -106,8 +104,7 @@ public class Book implements Entity {
         Scanner scn = new Scanner(System.in);
         String name = scn.nextLine();
 
-        LibraryImpl library = new LibraryImpl();
-        int idx = ((Book) library.find(new Book(), name)).getId();
+        int idx = new LibraryImpl().find(new Book(), name).getId();
         if (idx != -1) {
             for (int i = idx; i < LibraryImpl.getBookIdx() - 1; i++) {
                 LibraryImpl.books[i] = LibraryImpl.books[i + 1];
@@ -144,8 +141,7 @@ public class Book implements Entity {
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].name, name)) {
-                    LibraryImpl library = new LibraryImpl();
-                    readBook(((Book) library.find(new Book(), name)).getId());
+                    readBook(new LibraryImpl().find(new Book(), name).getId());
                     return;
                 }
             }
@@ -164,8 +160,7 @@ public class Book implements Entity {
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].author, author)) {
-                    LibraryImpl library = new LibraryImpl();
-                    readBook(((Book) library.find(new Book(), LibraryImpl.books[i].name)).getId());
+                    readBook(new LibraryImpl().find(new Book(), LibraryImpl.books[i].name).getId());
                     return;
                 }
             }
@@ -184,8 +179,7 @@ public class Book implements Entity {
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (LibraryImpl.books[i].price <= price) {
-                    LibraryImpl library = new LibraryImpl();
-                    readBook(((Book) library.find(new Book(), LibraryImpl.books[i].name)).getId());
+                    readBook(new LibraryImpl().find(new Book(), LibraryImpl.books[i].name).getId());
                     return;
                 }
             }
@@ -199,8 +193,7 @@ public class Book implements Entity {
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (!LibraryImpl.books[i].borrowStatus) {
-                    LibraryImpl library = new LibraryImpl();
-                    readBook(((Book) library.find(new Book(), LibraryImpl.books[i].name)).getId());
+                    readBook(new LibraryImpl().find(new Book(), LibraryImpl.books[i].name).getId());
                     return;
                 }
             }

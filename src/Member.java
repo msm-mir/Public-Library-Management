@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -26,9 +25,11 @@ public class Member implements Entity {
         LibraryImpl.setMemberIdx(LibraryImpl.getMemberIdx() + 1);
     }
 
+    public void setBorrowedBooks (Book book, int idx) { this.borrowedBooks[idx] = book; }
     public String getName() { return this.name; }
     public int getAge() { return this.age; }
     public Gender getGender() { return this.gender; }
+    public Book getBorrowBooks(int idx) { return this.borrowedBooks[idx]; }
     @Override
     public int getId() { return this.ID; }
 
@@ -43,8 +44,7 @@ public class Member implements Entity {
             System.out.print("Name: ");
             member.name = scn.nextLine();
 
-            LibraryImpl library = new LibraryImpl();
-            if (((Book) library.find(new Book(), member.name)).getId() == -1) {
+            if (new LibraryImpl().find(new Book(), member.name).getId() == -1) {
                 System.out.print("Age: ");
                 member.age = scn.nextInt();
                 scn.nextLine();
@@ -200,16 +200,12 @@ public class Member implements Entity {
                     System.out.print("Book name:");
                     String bookName = scn.nextLine();
 
-                    LibraryImpl library = new LibraryImpl();
-                    int bookIdx = ((Book) library.find(new Book(), bookName)).getId();
+                    int bookIdx = new LibraryImpl().find(new Book(), bookName).getId();
                     if (bookIdx != -1) {
                         if (LibraryImpl.books[bookIdx].getBorrowStatus()) {
                             System.out.println("This book is already borrowed by another member!");
                         } else {
-                            LibraryImpl.members[memberId].borrowedBooks[i].setDate(LocalDate.now().plus(Period.ofMonths(1)));
-                            LibraryImpl.members[memberId].borrowedBooks[i].setBorrowStatus(true);
-                            LibraryImpl.members[memberId].borrowedBooks[i].setMemberID(memberId);
-                            LibraryImpl.members[memberId].borrowedBooks[i] = LibraryImpl.books[bookIdx];
+                            new LibraryImpl().borrow(LibraryImpl.members[memberId], LibraryImpl.books[bookIdx], i);
                             System.out.println("Book borrowed successfully!");
                             return;
                         }
@@ -235,8 +231,7 @@ public class Member implements Entity {
                 System.out.print("Book name:");
                 String bookName = scn.nextLine();
 
-                LibraryImpl library = new LibraryImpl();
-                int bookIdx = ((Book) library.find(new Book(), bookName)).getId();
+                int bookIdx = new LibraryImpl().find(new Book(), bookName).getId();
                 if (bookIdx != -1) {
                     if (!LibraryImpl.books[bookIdx].getBorrowStatus()) {
                         System.out.println("This book isn't borrowed!");
