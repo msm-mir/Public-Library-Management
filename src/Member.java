@@ -186,31 +186,29 @@ public class Member implements Entity {
         int memberId = scn.nextInt();
 
         if ((memberId >= 0 && memberId < 100) && (LibraryImpl.members[memberId].exist)) {
-            if (!LibraryImpl.members[memberId].borrowedBooks[9].getBorrowStatus()) {
-                System.out.print("Book name:");
-                String bookName = scn.nextLine();
+            for (int i = 0; i < 10; i++) {
+                if (!LibraryImpl.members[memberId].borrowedBooks[i].getBorrowStatus()) {
+                    System.out.print("Book name:");
+                    String bookName = scn.nextLine();
 
-                int bookIdx = Book.search(bookName);
-                if (bookIdx != -1) {
-                    if (LibraryImpl.books[bookIdx].getBorrowStatus()) {
-                        System.out.println("This book is already borrowed by another member!");
-                    } else {
-                        for (int j = 0; j < 10; j++) {
-                            if (!LibraryImpl.members[memberId].borrowedBooks[j].getBorrowStatus()) {
-                                LibraryImpl.members[memberId].borrowedBooks[j].setDate(LocalDate.now().plus(Period.ofMonths(1)));
-                                LibraryImpl.members[memberId].borrowedBooks[j].setBorrowStatus(true);
-                                LibraryImpl.members[memberId].borrowedBooks[j].setMemberID(memberId);
-                                LibraryImpl.members[memberId].borrowedBooks[j] = LibraryImpl.books[bookIdx];
-                                System.out.println("Book borrowed successfully!");
-                                return;
-                            }
+                    int bookIdx = Book.search(bookName);
+                    if (bookIdx != -1) {
+                        if (LibraryImpl.books[bookIdx].getBorrowStatus()) {
+                            System.out.println("This book is already borrowed by another member!");
+                        } else {
+                            LibraryImpl.members[memberId].borrowedBooks[i].setDate(LocalDate.now().plus(Period.ofMonths(1)));
+                            LibraryImpl.members[memberId].borrowedBooks[i].setBorrowStatus(true);
+                            LibraryImpl.members[memberId].borrowedBooks[i].setMemberID(memberId);
+                            LibraryImpl.members[memberId].borrowedBooks[i] = LibraryImpl.books[bookIdx];
+                            System.out.println("Book borrowed successfully!");
+                            return;
                         }
+                    } else {
+                        System.out.println("Book doesn't exist!");
                     }
                 }
-                System.out.println("Book doesn't exist!");
-            } else {
-                System.out.println("Member can't borrows more than 10 books!");
             }
+            System.out.println("Member can't borrows more than 10 books!");
         } else {
             System.out.println("Member doesn't exist!");
         }
