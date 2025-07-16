@@ -170,20 +170,17 @@ public class Book implements Entity {
         Scanner scn = new Scanner(System.in);
         int price = scn.nextInt();
 
-        boolean find = false;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < idxManager; i++) {
             if (LibraryImpl.books[i].exist) {
                 if (LibraryImpl.books[i].price <= price) {
                     readBook(LibraryImpl.books[i].name);
-                    find = true;
-                    break;
+                    return;
                 }
             }
         }
-        if (!find) {
-            System.out.println("Book with a lower price doesn't exist!");
-            System.out.println();
-        }
+
+        System.out.println("Book with a lower price doesn't exist!");
+        System.out.println();
     }
 
     public static void searchBookByBorrowStatus() {
