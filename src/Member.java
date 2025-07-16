@@ -96,20 +96,25 @@ public class Member implements Entity {
         return null;
     }
 
-    public static void deleteMember() {
+    public static Pair<Member, Integer> deleteMember() {
         System.out.print("Please Enter The Member Id: ");
 
         Scanner scn = new Scanner(System.in);
         int id = scn.nextInt();
 
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
-            LibraryImpl.members[id].exist = false;
-            //setIdManager(id);
+            for (int i = id; i < LibraryImpl.getMemberIdx() - 1; i++) {
+                LibraryImpl.members[i] = LibraryImpl.members[i + 1];
+            }
+
             System.out.println("Member deleted successfully!");
+            System.out.println();
+            return new Pair<>(new Member(), id);
         } else {
             System.out.println("Member doesn't exist!");
         }
         System.out.println();
+        return null;
     }
 
     public static void readMember(int id) {

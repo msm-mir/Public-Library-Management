@@ -48,8 +48,16 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void delete(Entity entity) throws EntityNotFoundException {
-
+    public void delete(Entity entity, int idx) throws EntityNotFoundException {
+        if (entity instanceof Member) {
+            members[idx] = new Member();
+            memberIdx--;
+        } else if (entity instanceof Book) {
+            books[idx] = new Book();
+            bookIdx--;
+        } else {
+            throw new EntityNotFoundException();
+        }
     }
 
     @Override

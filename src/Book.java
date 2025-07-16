@@ -96,7 +96,7 @@ public class Book implements Entity {
         return null;
     }
 
-    public static void deleteBook() {
+    public static Pair<Book, Integer> deleteBook() {
         System.out.print("Please Enter The Book Name: ");
 
         Scanner scn = new Scanner(System.in);
@@ -107,13 +107,14 @@ public class Book implements Entity {
             for (int i = idx; i < LibraryImpl.getBookIdx() - 1; i++) {
                 LibraryImpl.books[i] = LibraryImpl.books[i + 1];
             }
-            /*idxManager--;
-            LibraryImpl.books[idxManager].exist = false;*/
             System.out.println("Book deleted successfully!");
+            System.out.println();
+            return new Pair<>(new Book(), idx);
         } else {
             System.out.println("Book doesn't exist!");
         }
         System.out.println();
+        return null;
     }
 
     public static void readBook(int idx) {

@@ -18,7 +18,7 @@ public class Main {
                     try {
                         library.save(Member.createMember());
                     } catch (EntityNotFoundException exception) {
-
+                        System.out.println(exception.getMessage());
                     }
                     break;
                 case 2:
@@ -31,7 +31,13 @@ public class Main {
                     }
                     break;
                 case 3:
-                    Member.deleteMember();
+                    try {
+                        Pair<Member, Integer> p = Member.deleteMember();
+                        if (p == null) throw new NullPointerException();
+                        library.delete(p.left, p.right);
+                    } catch (EntityNotFoundException exception) {
+                        System.out.println(exception.getMessage());
+                    }
                     break;
                 case 4:
                     readMember();
@@ -40,7 +46,7 @@ public class Main {
                     try {
                         library.save(Book.createBook());
                     } catch (EntityNotFoundException exception) {
-
+                        System.out.println(exception.getMessage());
                     }
                     break;
                 case 6:
@@ -53,7 +59,13 @@ public class Main {
                     }
                     break;
                 case 7:
-                    Book.deleteBook();
+                    try {
+                        Pair<Book, Integer> p = Book.deleteBook();
+                        if (p == null) throw new NullPointerException();
+                        library.delete(p.left, p.right);
+                    } catch (EntityNotFoundException exception) {
+                        System.out.println(exception.getMessage());
+                    }
                     break;
                 case 8:
                     readBook();
