@@ -29,96 +29,93 @@ public class Book implements Entity {
         int bookId = LibraryImpl.getBookIdx();
         if (bookId < 100) {
             Book book = new Book();
-            System.out.println("Book(" + bookId + "):");
+            new Book().showOnConsole("Book(" + bookId + "):\n");
 
-            System.out.print("Name: ");
-            book.name = (String) new Member().readFromConsole("");
+            new Book().showOnConsole("Name: ");
+            book.name = (String) new Book().readFromConsole("");
 
             if (new LibraryImpl().find(new Book(), book.name).getId() == -1) {
-                System.out.print("Author: ");
-                book.author = (String) new Member().readFromConsole("");
+                new Book().showOnConsole("Author: ");
+                book.author = (String) new Book().readFromConsole("");
 
-                System.out.print("Price: ");
-                book.price = (Integer) new Member().readFromConsole(0);
+                new Book().showOnConsole("Price: ");
+                book.price = (Integer) new Book().readFromConsole(0);
 
                 book.exist = true;
                 book.ID = LibraryImpl.getBookIdx();
 
-                System.out.println("Book added successfully!");
-                System.out.println();
+                new Book().showOnConsole("Book added successfully!\n\n");
                 return book;
             } else {
-                System.out.println("Book already exists!");
+                new Book().showOnConsole("Book already exists!\n");
             }
         } else {
-            System.out.println("Library books are full!");
+            new Book().showOnConsole("Library books are full!\n");
         }
-        System.out.println();
+        new Book().showOnConsole("\n");
         return null;
     }
 
     public static Pair<Book, Integer> updateBook() throws BadEntityException {
-        System.out.print("Please Enter The Book Name: ");
-        String name = (String) new Member().readFromConsole("");
+        new Book().showOnConsole("Please Enter The Book Name: ");
+        String name = (String) new Book().readFromConsole("");
 
         int idx = new LibraryImpl().find(new Book(), name).getId();
         if (idx != -1) {
             Book book = new Book();
 
-            System.out.print("Name: ");
-            book.name = (String) new Member().readFromConsole("");
+            new Book().showOnConsole("Name: ");
+            book.name = (String) new Book().readFromConsole("");
 
-            System.out.print("Author: ");
-            book.author = (String) new Member().readFromConsole("");
+            new Book().showOnConsole("Author: ");
+            book.author = (String) new Book().readFromConsole("");
 
-            System.out.print("Price: ");
-            book.price = (Integer) new Member().readFromConsole(0);
+            new Book().showOnConsole("Price: ");
+            book.price = (Integer) new Book().readFromConsole(0);
 
-            System.out.println("Book updated successfully!");
-            System.out.println();
+            new Book().showOnConsole("Book updated successfully!\n\n");
             return new Pair<>(book, idx);
         } else {
-            System.out.println("Book doesn't exist!");
+            new Book().showOnConsole("Book doesn't exist!\n");
         }
-        System.out.println();
+        new Book().showOnConsole("\n");
         return null;
     }
 
     public static Pair<Book, Integer> deleteBook() throws BadEntityException {
-        System.out.print("Please Enter The Book Name: ");
-        String name = (String) new Member().readFromConsole("");
+        new Book().showOnConsole("Please Enter The Book Name: ");
+        String name = (String) new Book().readFromConsole("");
 
         int idx = new LibraryImpl().find(new Book(), name).getId();
         if (idx != -1) {
             for (int i = idx; i < LibraryImpl.getBookIdx() - 1; i++) {
                 LibraryImpl.books[i] = LibraryImpl.books[i + 1];
             }
-            System.out.println("Book deleted successfully!");
-            System.out.println();
+            new Book().showOnConsole("Book deleted successfully!\n\n");
             return new Pair<>(new Book(), idx);
         } else {
-            System.out.println("Book doesn't exist!");
+            new Book().showOnConsole("Book doesn't exist!\n");
         }
-        System.out.println();
+        new Book().showOnConsole("\n");
         return null;
     }
 
     public static void readBook(int idx) {
         if (idx != -1) {
             Book book = LibraryImpl.books[idx];
-            System.out.println("Book(" + idx + "):");
-            System.out.println("name: " + book.name + ",");
-            System.out.println("author: " + book.author + ",");
-            System.out.println("price: " + book.price + ".");
+            new Book().showOnConsole("Book(" + idx + "):\n");
+            new Book().showOnConsole("name: " + book.name + ",\n");
+            new Book().showOnConsole("author: " + book.author + ",\n");
+            new Book().showOnConsole("price: " + book.price + ".\n");
         } else {
-            System.out.println("Book doesn't exist!");
+            new Book().showOnConsole("Book doesn't exist!\n");
         }
-        System.out.println();
+        new Book().showOnConsole("\n");
     }
 
     public static void searchBookByName() throws BadEntityException {
-        System.out.print("Name: ");
-        String name = (String) new Member().readFromConsole("");
+        new Book().showOnConsole("Name: ");
+        String name = (String) new Book().readFromConsole("");
 
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
@@ -129,13 +126,12 @@ public class Book implements Entity {
             }
         }
 
-        System.out.println("Book with this name doesn't exist!");
-        System.out.println();
+        new Book().showOnConsole("Book with this name doesn't exist!\n\n");
     }
 
     public static void searchBookByAuthor() throws BadEntityException {
-        System.out.print("Author: ");
-        String author = (String) new Member().readFromConsole("");
+        new Book().showOnConsole("Author: ");
+        String author = (String) new Book().readFromConsole("");
 
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
@@ -146,13 +142,12 @@ public class Book implements Entity {
             }
         }
 
-        System.out.println("Book with this author doesn't exist!");
-        System.out.println();
+        new Book().showOnConsole("Book with this author doesn't exist!\n\n");
     }
 
     public static void searchBookByPrice() throws BadEntityException {
-        System.out.print("Price: ");
-        int price = (Integer) new Member().readFromConsole(0);
+        new Book().showOnConsole("Price: ");
+        int price = (Integer) new Book().readFromConsole(0);
 
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
@@ -163,8 +158,7 @@ public class Book implements Entity {
             }
         }
 
-        System.out.println("Book with a lower price doesn't exist!");
-        System.out.println();
+        new Book().showOnConsole("Book with a lower price doesn't exist!\n\n");
     }
 
     public static void searchBookByBorrowStatus() {
@@ -177,8 +171,7 @@ public class Book implements Entity {
             }
         }
 
-        System.out.println("Free book doesn't exist!");
-        System.out.println();
+        new Book().showOnConsole("Free book doesn't exist!\n\n");
     }
 
     @Override
@@ -197,7 +190,7 @@ public class Book implements Entity {
     }
 
     @Override
-    public void showOnConsole() {
-
+    public void showOnConsole(String output) {
+        System.out.print(output);
     }
 }

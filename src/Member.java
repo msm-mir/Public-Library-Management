@@ -27,62 +27,60 @@ public class Member implements Entity {
         int memberId = LibraryImpl.getMemberIdx();
         if (memberId < 100) {
             Member member = new Member();
-            System.out.println("Member(" + memberId + "):");
+            new Member().showOnConsole("Member(" + memberId + "):\n");
 
-            System.out.print("Name: ");
+            new Member().showOnConsole("Name: ");
             member.name = (String) new Member().readFromConsole("");
 
             if (new LibraryImpl().find(new Book(), member.name).getId() == -1) {
-                System.out.print("Age: ");
+                new Member().showOnConsole("Age: ");
                 member.age = (Integer) new Member().readFromConsole(0);
 
-                System.out.print("Gender: ");
+                new Member().showOnConsole("Gender: ");
                 member.gender = Gender.valueOf((String) new Member().readFromConsole(""));
 
                 member.exist = true;
                 member.ID = LibraryImpl.getMemberIdx();
 
-                System.out.println("Member added successfully!");
-                System.out.println();
+                new Member().showOnConsole("Member added successfully!\n\n");
                 return member;
             } else {
-                System.out.println("Member already exists!");
+                new Member().showOnConsole("Member already exists!\n");
             }
         } else {
-            System.out.println("Library members are full!");
+            new Member().showOnConsole("Library members are full!\n");
         }
-        System.out.println();
+        new Member().showOnConsole("\n");
         return null;
     }
 
     public static Pair<Member, Integer> updateMember() throws BadEntityException {
-        System.out.print("Please Enter The Member Id: ");
+        new Member().showOnConsole("Please Enter The Member Id: ");
         int id = (Integer) new Member().readFromConsole(0);
 
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
             Member member = new Member();
 
-            System.out.print("Name: ");
+            new Member().showOnConsole("Name: ");
             member.name = (String) new Member().readFromConsole("");
 
-            System.out.print("Age: ");
+            new Member().showOnConsole("Age: ");
             member.age = (Integer) new Member().readFromConsole(0);
 
-            System.out.print("Gender: ");
+            new Member().showOnConsole("Gender: ");
             member.gender = Gender.valueOf((String) new Member().readFromConsole(""));
 
-            System.out.println("Member updated successfully!");
-            System.out.println();
+            new Member().showOnConsole("Member updated successfully!\n\n");
             return new Pair<>(member, id);
         } else {
-            System.out.println("Member doesn't exist!");
+            new Member().showOnConsole("Member doesn't exist!\n");
         }
-        System.out.println();
+        new Member().showOnConsole("\n");
         return null;
     }
 
     public static Pair<Member, Integer> deleteMember() throws BadEntityException {
-        System.out.print("Please Enter The Member Id: ");
+        new Member().showOnConsole("Please Enter The Member Id: ");
         int id = (Integer) new Member().readFromConsole(0);
 
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
@@ -90,31 +88,30 @@ public class Member implements Entity {
                 LibraryImpl.members[i] = LibraryImpl.members[i + 1];
             }
 
-            System.out.println("Member deleted successfully!");
-            System.out.println();
+            new Member().showOnConsole("Member deleted successfully!\n\n");
             return new Pair<>(new Member(), id);
         } else {
-            System.out.println("Member doesn't exist!");
+            new Member().showOnConsole("Member doesn't exist!\n");
         }
-        System.out.println();
+        new Member().showOnConsole("\n");
         return null;
     }
 
     public static void readMember(int id) {
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
             Member tmp = LibraryImpl.members[id];
-            System.out.println("Member(" + id + "):");
-            System.out.println("name: " + tmp.name + ",");
-            System.out.println("age: " + tmp.age + ",");
-            System.out.println("gender: " + tmp.gender + ".");
+            new Member().showOnConsole("Member(" + id + "):\n");
+            new Member().showOnConsole("name: " + tmp.name + ",\n");
+            new Member().showOnConsole("age: " + tmp.age + ",\n");
+            new Member().showOnConsole("gender: " + tmp.gender + ".\n");
         } else {
-            System.out.println("Member doesn't exist!");
+            new Member().showOnConsole("Member doesn't exist!\n");
         }
-        System.out.println();
+        new Member().showOnConsole("\n");
     }
 
     public static void searchMemberByName() throws BadEntityException {
-        System.out.print("Name: ");
+        new Member().showOnConsole("Name: ");
         String name = (String) new Member().readFromConsole("");
 
         for (int i = 0; i < LibraryImpl.getMemberIdx(); i++) {
@@ -126,12 +123,11 @@ public class Member implements Entity {
             }
         }
 
-        System.out.println("Member with this name doesn't exist!");
-        System.out.println();
+        new Member().showOnConsole("Member with this name doesn't exist!\n\n");
     }
 
     public static void searchMemberByAge() throws BadEntityException {
-        System.out.print("Age: ");
+        new Member().showOnConsole("Age: ");
         int age = (Integer) new Member().readFromConsole(0);
 
         for (int i = 0; i < LibraryImpl.getMemberIdx(); i++) {
@@ -143,12 +139,11 @@ public class Member implements Entity {
             }
         }
 
-        System.out.println("Member with this age doesn't exist!");
-        System.out.println();
+        new Member().showOnConsole("Member with this age doesn't exist!\n\n");
     }
 
     public static void searchMemberByGender() throws BadEntityException {
-        System.out.print("Gender: ");
+        new Member().showOnConsole("Gender: ");
         Gender gender = Gender.valueOf((String) new Member().readFromConsole(""));
 
         for (int i = 0; i < LibraryImpl.getMemberIdx(); i++) {
@@ -160,63 +155,62 @@ public class Member implements Entity {
             }
         }
 
-        System.out.println("Member with this gender doesn't exist!");
-        System.out.println();
+        new Member().showOnConsole("Member with this gender doesn't exist!\n\n");
     }
 
     public static void borrowBook() throws BadEntityException {
-        System.out.print("Please Enter The Member Id: ");
+        new Member().showOnConsole("Please Enter The Member Id: ");
         int memberId = (Integer) new Member().readFromConsole(0);
 
         if ((memberId >= 0 && memberId < 100) && (LibraryImpl.members[memberId].exist)) {
             for (int i = 0; i < 10; i++) {
                 if (!LibraryImpl.members[memberId].borrowedBooks[i].getBorrowStatus()) {
-                    System.out.print("Book name:");
+                    new Member().showOnConsole("Book name:");
                     String bookName = (String) new Member().readFromConsole("");
 
                     int bookIdx = new LibraryImpl().find(new Book(), bookName).getId();
                     if (bookIdx != -1) {
                         if (LibraryImpl.books[bookIdx].getBorrowStatus()) {
-                            System.out.println("This book is already borrowed by another member!");
+                            new Member().showOnConsole("This book is already borrowed by another member!\n");
                         } else {
                             new LibraryImpl().borrow(LibraryImpl.members[memberId], LibraryImpl.books[bookIdx], i);
-                            System.out.println("Book borrowed successfully!");
+                            new Member().showOnConsole("Book borrowed successfully!\n");
                             return;
                         }
                     } else {
-                        System.out.println("Book doesn't exist!");
+                        new Member().showOnConsole("Book doesn't exist!\n");
                     }
                 }
             }
-            System.out.println("Member can't borrows more than 10 books!");
+            new Member().showOnConsole("Member can't borrows more than 10 books!\n");
         } else {
-            System.out.println("Member doesn't exist!");
+            new Member().showOnConsole("Member doesn't exist!\n");
         }
-        System.out.println();
+        new Member().showOnConsole("\n");
     }
 
     public static void returnBook() throws BadEntityException {
-        System.out.print("Please Enter The Member Id: ");
+        new Member().showOnConsole("Please Enter The Member Id: ");
         int memberId = (Integer) new Member().readFromConsole(0);
 
         if ((memberId >= 0 && memberId < 100) && (LibraryImpl.members[memberId].exist)) {
-                System.out.print("Book name:");
+            new Member().showOnConsole("Book name:");
                 String bookName = (String) new Member().readFromConsole("");
 
                 int bookIdx = new LibraryImpl().find(new Book(), bookName).getId();
                 if (bookIdx != -1) {
                     if (!LibraryImpl.books[bookIdx].getBorrowStatus()) {
-                        System.out.println("This book isn't borrowed!");
+                        new Member().showOnConsole("This book isn't borrowed!\n");
                     } else {
                         if (new LibraryImpl().giveBack(LibraryImpl.members[memberId], LibraryImpl.books[bookIdx]))
                             return;
                     }
                 }
-                System.out.println("Book doesn't exist!");
+            new Member().showOnConsole("Book doesn't exist!\n");
         } else {
-            System.out.println("Member doesn't exist!");
+            new Member().showOnConsole("Member doesn't exist!\n");
         }
-        System.out.println();
+        new Member().showOnConsole("\n");
     }
 
     public static void showOverBorrowedMembers() {
@@ -245,7 +239,7 @@ public class Member implements Entity {
     }
 
     @Override
-    public void showOnConsole() {
-
+    public void showOnConsole(String output) {
+        System.out.print(output);
     }
 }
