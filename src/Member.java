@@ -3,7 +3,7 @@ import java.time.Period;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Member extends Person {
+public class Member implements Entity {
     private String name;
     private int age;
     private Gender gender;
@@ -24,10 +24,13 @@ public class Member extends Person {
     public String getName() { return this.name; }
     public int getAge() { return this.age; }
     public Gender getGender() { return this.gender; }
-    public int getID() { return this.ID; }
+    public int getId() { return this.ID; }
     public static void setIdManager() {
         for (int i = 0; i < 100; i++) {
-            if (!LibraryImpl.members[i].exist) idManager = i;
+            if (!LibraryImpl.members[i].exist) {
+                idManager = i;
+                return;
+            }
         }
         idManager = 100;
     }
@@ -44,6 +47,7 @@ public class Member extends Person {
 
             System.out.print("Age: ");
             LibraryImpl.members[id].age = scn.nextInt();
+            scn.nextLine();
 
             System.out.print("Gender: ");
             LibraryImpl.members[id].gender = Gender.valueOf(scn.nextLine());
@@ -262,5 +266,17 @@ public class Member extends Person {
             System.out.println("Member with this gender doesn't exist!");
             System.out.println();
         }
+    }
+
+    public int getID() {
+        return idManager;
+    }
+
+    public void readFromConsole() throws BadEntityException {
+
+    }
+
+    public void showOnConsole() {
+
     }
 }
