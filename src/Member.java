@@ -31,23 +31,26 @@ public class Member implements Entity {
         Scanner scn = new Scanner(System.in);
 
         if (idManager != 100) {
-            int id = idManager;
-            System.out.println("Member(" + id + "):");
+            System.out.println("Member(" + idManager + "):");
 
             System.out.print("Name: ");
-            LibraryImpl.members[id].name = scn.nextLine();
+            LibraryImpl.members[idManager].name = scn.nextLine();
 
-            System.out.print("Age: ");
-            LibraryImpl.members[id].age = scn.nextInt();
-            scn.nextLine();
+            if (search(LibraryImpl.members[idManager].name) == -1) {
+                System.out.print("Age: ");
+                LibraryImpl.members[idManager].age = scn.nextInt();
+                scn.nextLine();
 
-            System.out.print("Gender: ");
-            LibraryImpl.members[id].gender = Gender.valueOf(scn.nextLine());
+                System.out.print("Gender: ");
+                LibraryImpl.members[idManager].gender = Gender.valueOf(scn.nextLine());
 
-            LibraryImpl.members[id].exist = true;
-            setIdManager(idManager + 1);
+                LibraryImpl.members[idManager].exist = true;
+                setIdManager(idManager + 1);
 
-            System.out.println("Member added successfully!");
+                System.out.println("Member added successfully!");
+            } else {
+                System.out.println("Member already exists!");
+            }
         } else {
             System.out.println("Library members are full!");
         }
