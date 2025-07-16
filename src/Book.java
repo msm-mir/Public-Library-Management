@@ -34,21 +34,20 @@ public class Book implements Entity {
 
     public static void createBook() {
         Scanner scn = new Scanner(System.in);
-        int idx = idxManager;
 
-        if (idx < 100) {
-            System.out.println("Book(" + idx + "):");
+        if (idxManager < 100) {
+            System.out.println("Book(" + idxManager + "):");
 
             System.out.print("Name: ");
-            LibraryImpl.books[idx].name = scn.nextLine();
+            LibraryImpl.books[idxManager].name = scn.nextLine();
 
             System.out.print("Author: ");
-            LibraryImpl.books[idx].author = scn.nextLine();
+            LibraryImpl.books[idxManager].author = scn.nextLine();
 
             System.out.print("Price: ");
-            LibraryImpl.books[idx].price = scn.nextInt();
+            LibraryImpl.books[idxManager].price = scn.nextInt();
 
-            LibraryImpl.books[idx].exist = true;
+            LibraryImpl.books[idxManager].exist = true;
 
             idxManager++;
 
