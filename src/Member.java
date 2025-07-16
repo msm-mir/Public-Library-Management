@@ -16,41 +16,28 @@ public class Member implements Entity {
     }
 
     public Member() {}
-    public Member(String name, int age, Gender gender) {
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.ID = LibraryImpl.getMemberIdx();
-        this.exist = true;
-        LibraryImpl.setMemberIdx(LibraryImpl.getMemberIdx() + 1);
-    }
 
     public void setBorrowedBooks (Book book, int idx) { this.borrowedBooks[idx] = book; }
     public String getName() { return this.name; }
-    public int getAge() { return this.age; }
-    public Gender getGender() { return this.gender; }
     public Book getBorrowBooks(int idx) { return this.borrowedBooks[idx]; }
     @Override
     public int getId() { return this.ID; }
 
-    public static Member createMember() {
-        Scanner scn = new Scanner(System.in);
-
+    public static Member createMember() throws BadEntityException {
         int memberId = LibraryImpl.getMemberIdx();
-        if (memberId != 100) {
+        if (memberId < 100) {
             Member member = new Member();
             System.out.println("Member(" + memberId + "):");
 
             System.out.print("Name: ");
-            member.name = scn.nextLine();
+            member.name = (String) new Member().readFromConsole("");
 
             if (new LibraryImpl().find(new Book(), member.name).getId() == -1) {
                 System.out.print("Age: ");
-                member.age = scn.nextInt();
-                scn.nextLine();
+                member.age = (Integer) new Member().readFromConsole(0);
 
                 System.out.print("Gender: ");
-                member.gender = Gender.valueOf(scn.nextLine());
+                member.gender = Gender.valueOf((String) new Member().readFromConsole(""));
 
                 member.exist = true;
                 member.ID = LibraryImpl.getMemberIdx();
@@ -68,24 +55,21 @@ public class Member implements Entity {
         return null;
     }
 
-    public static Pair<Member, Integer> updateMember() {
+    public static Pair<Member, Integer> updateMember() throws BadEntityException {
         System.out.print("Please Enter The Member Id: ");
-
-        Scanner scn = new Scanner(System.in);
-        int id = scn.nextInt();
+        int id = (Integer) new Member().readFromConsole(0);
 
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
             Member member = new Member();
 
             System.out.print("Name: ");
-            member.name = scn.nextLine();
+            member.name = (String) new Member().readFromConsole("");
 
             System.out.print("Age: ");
-            member.age = scn.nextInt();
-            scn.nextLine();
+            member.age = (Integer) new Member().readFromConsole(0);
 
             System.out.print("Gender: ");
-            member.gender = Gender.valueOf(scn.next());
+            member.gender = Gender.valueOf((String) new Member().readFromConsole(""));
 
             System.out.println("Member updated successfully!");
             System.out.println();
@@ -97,11 +81,9 @@ public class Member implements Entity {
         return null;
     }
 
-    public static Pair<Member, Integer> deleteMember() {
+    public static Pair<Member, Integer> deleteMember() throws BadEntityException {
         System.out.print("Please Enter The Member Id: ");
-
-        Scanner scn = new Scanner(System.in);
-        int id = scn.nextInt();
+        int id = (Integer) new Member().readFromConsole(0);
 
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
             for (int i = id; i < LibraryImpl.getMemberIdx() - 1; i++) {
@@ -131,13 +113,11 @@ public class Member implements Entity {
         System.out.println();
     }
 
-    public static void searchMemberByName() {
+    public static void searchMemberByName() throws BadEntityException {
         System.out.print("Name: ");
+        String name = (String) new Member().readFromConsole("");
 
-        Scanner scn = new Scanner(System.in);
-        String name = scn.nextLine();
-
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < LibraryImpl.getMemberIdx(); i++) {
             if (LibraryImpl.members[i].exist) {
                 if (Objects.equals(LibraryImpl.members[i].name, name)) {
                     readMember(i);
@@ -150,13 +130,11 @@ public class Member implements Entity {
         System.out.println();
     }
 
-    public static void searchMemberByAge() {
+    public static void searchMemberByAge() throws BadEntityException {
         System.out.print("Age: ");
+        int age = (Integer) new Member().readFromConsole(0);
 
-        Scanner scn = new Scanner(System.in);
-        int age = scn.nextInt();
-
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < LibraryImpl.getMemberIdx(); i++) {
             if (LibraryImpl.members[i].exist) {
                 if (LibraryImpl.members[i].age == age) {
                     readMember(i);
@@ -169,13 +147,11 @@ public class Member implements Entity {
         System.out.println();
     }
 
-    public static void searchMemberByGender() {
+    public static void searchMemberByGender() throws BadEntityException {
         System.out.print("Gender: ");
+        Gender gender = Gender.valueOf((String) new Member().readFromConsole(""));
 
-        Scanner scn = new Scanner(System.in);
-        Gender gender = Gender.valueOf(scn.next());
-
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < LibraryImpl.getMemberIdx(); i++) {
             if (LibraryImpl.members[i].exist) {
                 if (LibraryImpl.members[i].gender == gender) {
                     readMember(i);
@@ -188,17 +164,15 @@ public class Member implements Entity {
         System.out.println();
     }
 
-    public static void borrowBook() {
+    public static void borrowBook() throws BadEntityException {
         System.out.print("Please Enter The Member Id: ");
-
-        Scanner scn = new Scanner(System.in);
-        int memberId = scn.nextInt();
+        int memberId = (Integer) new Member().readFromConsole(0);
 
         if ((memberId >= 0 && memberId < 100) && (LibraryImpl.members[memberId].exist)) {
             for (int i = 0; i < 10; i++) {
                 if (!LibraryImpl.members[memberId].borrowedBooks[i].getBorrowStatus()) {
                     System.out.print("Book name:");
-                    String bookName = scn.nextLine();
+                    String bookName = (String) new Member().readFromConsole("");
 
                     int bookIdx = new LibraryImpl().find(new Book(), bookName).getId();
                     if (bookIdx != -1) {
@@ -221,15 +195,13 @@ public class Member implements Entity {
         System.out.println();
     }
 
-    public static void returnBook() {
+    public static void returnBook() throws BadEntityException {
         System.out.print("Please Enter The Member Id: ");
-
-        Scanner scn = new Scanner(System.in);
-        int memberId = scn.nextInt();
+        int memberId = (Integer) new Member().readFromConsole(0);
 
         if ((memberId >= 0 && memberId < 100) && (LibraryImpl.members[memberId].exist)) {
                 System.out.print("Book name:");
-                String bookName = scn.nextLine();
+                String bookName = (String) new Member().readFromConsole("");
 
                 int bookIdx = new LibraryImpl().find(new Book(), bookName).getId();
                 if (bookIdx != -1) {
@@ -248,22 +220,28 @@ public class Member implements Entity {
     }
 
     public static void showOverBorrowedMembers() {
-        for (int i = 0; i < 100; i++) {
-            if (LibraryImpl.members[i].exist) {
-                for (int j = 0; j < 10; j++) {
-                    if (LibraryImpl.members[i].borrowedBooks[j].getBorrowStatus()) {
-                        if (LocalDate.now().isBefore(LibraryImpl.members[i].borrowedBooks[j].getDate())) {
-                            readMember(i);
-                        }
-                    }
+        for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
+            if (LibraryImpl.books[i].getBorrowStatus()) {
+                if (LocalDate.now().isBefore(LibraryImpl.books[i].getDate())) {
+                    readMember(LibraryImpl.books[i].getMemberID());
                 }
             }
         }
     }
 
     @Override
-    public void readFromConsole() throws BadEntityException {
+    public Object readFromConsole(Object object) throws BadEntityException {
+        Scanner scn = new Scanner(System.in);
 
+        if (object instanceof String) {
+            return scn.nextLine();
+        } else if (object instanceof Integer) {
+            Integer i = scn.nextInt();
+            scn.nextLine();
+            return i;
+        } else {
+            throw new BadEntityException();
+        }
     }
 
     @Override

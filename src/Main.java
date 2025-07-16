@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BadEntityException {
         LibraryImpl library = new LibraryImpl();
 
         System.out.println("Welcome To Our Library!");
@@ -17,7 +17,7 @@ public class Main {
                 case 1:
                     try {
                         library.save(Member.createMember());
-                    } catch (EntityNotFoundException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
                     }
                     break;
@@ -26,7 +26,7 @@ public class Main {
                         Pair<Member, Integer> p = Member.updateMember();
                         if (p == null) throw new NullPointerException();
                         library.update(p.left, p.right);
-                    } catch (EntityNotFoundException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
                     }
                     break;
@@ -35,7 +35,7 @@ public class Main {
                         Pair<Member, Integer> p = Member.deleteMember();
                         if (p == null) throw new NullPointerException();
                         library.delete(p.left, p.right);
-                    } catch (EntityNotFoundException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
                     }
                     break;

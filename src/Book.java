@@ -13,18 +13,8 @@ public class Book implements Entity {
     private int memberID;
 
     public Book() {}
-    public Book(String name, String author, int price) {
-        this.name = name;
-        this.author = author;
-        this.price = price;
-        this.ID = LibraryImpl.getBookIdx();
-        this.exist = true;
-        LibraryImpl.setBookIdx(LibraryImpl.getBookIdx() + 1);
-    }
 
     public String getName() { return this.name; }
-    public String getAuthor() { return this.author; }
-    public int getPrice() { return this.price; }
     public boolean getBorrowStatus() { return this.borrowStatus; }
     public LocalDate getDate() { return this.date; }
     public int getMemberID() { return this.memberID; }
@@ -35,23 +25,21 @@ public class Book implements Entity {
     public void setDate(LocalDate date) { this.date = date; }
     public void setMemberID(int id) { this.memberID = id; }
 
-    public static Book createBook() {
-        Scanner scn = new Scanner(System.in);
-
+    public static Book createBook() throws BadEntityException {
         int bookId = LibraryImpl.getBookIdx();
         if (bookId < 100) {
             Book book = new Book();
             System.out.println("Book(" + bookId + "):");
 
             System.out.print("Name: ");
-            book.name = scn.nextLine();
+            book.name = (String) new Member().readFromConsole("");
 
             if (new LibraryImpl().find(new Book(), book.name).getId() == -1) {
                 System.out.print("Author: ");
-                book.author = scn.nextLine();
+                book.author = (String) new Member().readFromConsole("");
 
                 System.out.print("Price: ");
-                book.price = scn.nextInt();
+                book.price = (Integer) new Member().readFromConsole(0);
 
                 book.exist = true;
                 book.ID = LibraryImpl.getBookIdx();
@@ -69,24 +57,22 @@ public class Book implements Entity {
         return null;
     }
 
-    public static Pair<Book, Integer> updateBook() {
+    public static Pair<Book, Integer> updateBook() throws BadEntityException {
         System.out.print("Please Enter The Book Name: ");
-
-        Scanner scn = new Scanner(System.in);
-        String name = scn.nextLine();
+        String name = (String) new Member().readFromConsole("");
 
         int idx = new LibraryImpl().find(new Book(), name).getId();
         if (idx != -1) {
             Book book = new Book();
 
             System.out.print("Name: ");
-            book.name = scn.nextLine();
+            book.name = (String) new Member().readFromConsole("");
 
             System.out.print("Author: ");
-            book.author = scn.nextLine();
+            book.author = (String) new Member().readFromConsole("");
 
             System.out.print("Price: ");
-            book.price = scn.nextInt();
+            book.price = (Integer) new Member().readFromConsole(0);
 
             System.out.println("Book updated successfully!");
             System.out.println();
@@ -98,11 +84,9 @@ public class Book implements Entity {
         return null;
     }
 
-    public static Pair<Book, Integer> deleteBook() {
+    public static Pair<Book, Integer> deleteBook() throws BadEntityException {
         System.out.print("Please Enter The Book Name: ");
-
-        Scanner scn = new Scanner(System.in);
-        String name = scn.nextLine();
+        String name = (String) new Member().readFromConsole("");
 
         int idx = new LibraryImpl().find(new Book(), name).getId();
         if (idx != -1) {
@@ -132,11 +116,9 @@ public class Book implements Entity {
         System.out.println();
     }
 
-    public static void searchBookByName() {
+    public static void searchBookByName() throws BadEntityException {
         System.out.print("Name: ");
-
-        Scanner scn = new Scanner(System.in);
-        String name = scn.nextLine();
+        String name = (String) new Member().readFromConsole("");
 
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
@@ -151,11 +133,9 @@ public class Book implements Entity {
         System.out.println();
     }
 
-    public static void searchBookByAuthor() {
+    public static void searchBookByAuthor() throws BadEntityException {
         System.out.print("Author: ");
-
-        Scanner scn = new Scanner(System.in);
-        String author = scn.nextLine();
+        String author = (String) new Member().readFromConsole("");
 
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
@@ -170,11 +150,9 @@ public class Book implements Entity {
         System.out.println();
     }
 
-    public static void searchBookByPrice() {
+    public static void searchBookByPrice() throws BadEntityException {
         System.out.print("Price: ");
-
-        Scanner scn = new Scanner(System.in);
-        int price = scn.nextInt();
+        int price = (Integer) new Member().readFromConsole(0);
 
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
@@ -204,8 +182,18 @@ public class Book implements Entity {
     }
 
     @Override
-    public void readFromConsole() throws BadEntityException {
+    public Object readFromConsole(Object object) throws BadEntityException {
+        Scanner scn = new Scanner(System.in);
 
+        if (object instanceof String) {
+            return scn.nextLine();
+        } else if (object instanceof Integer) {
+            Integer i = scn.nextInt();
+            scn.nextLine();
+            return i;
+        } else {
+            throw new BadEntityException();
+        }
     }
 
     @Override
