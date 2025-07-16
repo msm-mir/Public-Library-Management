@@ -44,7 +44,13 @@ public class Main {
                     }
                     break;
                 case 6:
-                    Book.updateBook();
+                    try {
+                        Pair<Book, Integer> p = Book.updateBook();
+                        if (p == null) throw new NullPointerException();
+                        library.update(p.left, p.right);
+                    } catch (EntityNotFoundException exception) {
+                        System.out.println(exception.getMessage());
+                    }
                     break;
                 case 7:
                     Book.deleteBook();

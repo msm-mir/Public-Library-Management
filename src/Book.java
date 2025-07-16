@@ -67,7 +67,7 @@ public class Book implements Entity {
         return null;
     }
 
-    public static void updateBook() {
+    public static Pair<Book, Integer> updateBook() {
         System.out.print("Please Enter The Book Name: ");
 
         Scanner scn = new Scanner(System.in);
@@ -75,20 +75,25 @@ public class Book implements Entity {
 
         int idx = search(name);
         if (idx != -1) {
+            Book book = new Book();
+
             System.out.print("Name: ");
-            LibraryImpl.books[idx].name = scn.nextLine();
+            book.name = scn.nextLine();
 
             System.out.print("Author: ");
-            LibraryImpl.books[idx].author = scn.nextLine();
+            book.author = scn.nextLine();
 
             System.out.print("Price: ");
-            LibraryImpl.books[idx].price = scn.nextInt();
+            book.price = scn.nextInt();
 
             System.out.println("Book updated successfully!");
+            System.out.println();
+            return new Pair<>(book, idx);
         } else {
             System.out.println("Book doesn't exist!");
         }
         System.out.println();
+        return null;
     }
 
     public static void deleteBook() {
@@ -203,7 +208,7 @@ public class Book implements Entity {
     }
 
     @Override
-    public int getId() { return 0; }
+    public int getId() { return this.ID; }
 
     @Override
     public void readFromConsole() throws BadEntityException {
