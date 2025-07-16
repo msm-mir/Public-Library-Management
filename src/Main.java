@@ -21,7 +21,7 @@ public class Main {
                         library.save(m);
                     } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (NullPointerException _) {}
                     break;
 
                 case 2:
@@ -31,7 +31,7 @@ public class Main {
                         library.update(p.left, p.right);
                     } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (NullPointerException _) {}
                     break;
 
                 case 3:
@@ -41,7 +41,7 @@ public class Main {
                         library.delete(p.left, p.right);
                     } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (NullPointerException _) {}
                     break;
 
                 case 4:
@@ -55,7 +55,7 @@ public class Main {
                         library.save(b);
                     } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (NullPointerException _) {}
                     break;
 
                 case 6:
@@ -65,7 +65,7 @@ public class Main {
                         library.update(p.left, p.right);
                     } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (NullPointerException _) {}
                     break;
 
                 case 7:
@@ -75,7 +75,7 @@ public class Main {
                         library.delete(p.left, p.right);
                     } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (NullPointerException _) {}
                     break;
 
                 case 8:

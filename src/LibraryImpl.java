@@ -33,8 +33,6 @@ public class LibraryImpl implements Library {
         } else if (entity instanceof Book) {
             books[bookIdx] = (Book) entity;
             bookIdx++;
-        } else {
-            throw new EntityNotFoundException();
         }
     }
 
