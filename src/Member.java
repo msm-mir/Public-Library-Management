@@ -236,14 +236,8 @@ public class Member implements Entity {
                     if (!LibraryImpl.books[bookIdx].getBorrowStatus()) {
                         System.out.println("This book isn't borrowed!");
                     } else {
-                        for (int i = 0; i < 10; i++) {
-                            if (!LibraryImpl.members[memberId].borrowedBooks[i].getBorrowStatus()) {
-                                if (Objects.equals(LibraryImpl.members[memberId].borrowedBooks[i].getName(), bookName)) {
-                                    LibraryImpl.members[memberId].borrowedBooks[i].setBorrowStatus(false);
-                                    return;
-                                }
-                            }
-                        }
+                        if (new LibraryImpl().giveBack(LibraryImpl.members[memberId], LibraryImpl.books[bookIdx]))
+                            return;
                     }
                 }
                 System.out.println("Book doesn't exist!");

@@ -93,7 +93,15 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void giveBack(Member member, Book book) {
-
+    public boolean giveBack(Member member, Book book) {
+        for (int i = 0; i < 10; i++) {
+            if (!members[member.getId()].getBorrowBooks(i).getBorrowStatus()) {
+                if (Objects.equals(members[member.getId()].getBorrowBooks(i).getName(), book.getName())) {
+                    members[member.getId()].getBorrowBooks(i).setBorrowStatus(false);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
