@@ -1,5 +1,5 @@
 public interface Entity {
-    int getID();
+    int getIdManager();
     void readFromConsole() throws BadEntityException;
     void showOnConsole();
 }

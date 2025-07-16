@@ -208,7 +208,7 @@ public class Book implements Entity {
     }
 
     @Override
-    public int getID() {
+    public int getIdManager() {
         return idxManager;
     }
 

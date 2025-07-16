@@ -24,7 +24,7 @@ public class Member implements Entity {
     public String getName() { return this.name; }
     public int getAge() { return this.age; }
     public Gender getGender() { return this.gender; }
-    public int getId() { return this.ID; }
+    public int getID() { return this.ID; }
     public static void setIdManager() {
         for (int i = 0; i < 100; i++) {
             if (!LibraryImpl.members[i].exist) {
@@ -268,7 +268,7 @@ public class Member implements Entity {
         }
     }
 
-    public int getID() {
+    public int getIdManager() {
         return idManager;
     }
 
