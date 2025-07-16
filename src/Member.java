@@ -262,14 +262,17 @@ public class Member implements Entity {
         }
     }
 
+    @Override
     public int getIdManager() {
         return idManager;
     }
 
+    @Override
     public void readFromConsole() throws BadEntityException {
 
     }
 
+    @Override
     public void showOnConsole() {
 
     }

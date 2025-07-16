@@ -153,6 +153,6 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         String name = scn.nextLine();
 
-        Book.readBook(name);
+        Book.readBook(Book.search(name));
     }
 }

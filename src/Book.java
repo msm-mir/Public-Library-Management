@@ -105,8 +105,7 @@ public class Book implements Entity {
         System.out.println();
     }
 
-    public static void readBook(String name) {
-        int idx = search(name);
+    public static void readBook(int idx) {
         if (idx != -1) {
             Book book = LibraryImpl.books[idx];
             System.out.println("Book(" + idx + "):");
@@ -135,7 +134,7 @@ public class Book implements Entity {
         for (int i = 0; i < idxManager; i++) {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].name, name)) {
-                    readBook(name);
+                    readBook(search(name));
                     return;
                 }
             }
@@ -154,7 +153,7 @@ public class Book implements Entity {
         for (int i = 0; i < idxManager; i++) {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].author, author)) {
-                    readBook(LibraryImpl.books[i].name);
+                    readBook(search(LibraryImpl.books[i].name));
                     return;
                 }
             }
@@ -173,7 +172,7 @@ public class Book implements Entity {
         for (int i = 0; i < idxManager; i++) {
             if (LibraryImpl.books[i].exist) {
                 if (LibraryImpl.books[i].price <= price) {
-                    readBook(LibraryImpl.books[i].name);
+                    readBook(search(LibraryImpl.books[i].name));
                     return;
                 }
             }
@@ -187,12 +186,12 @@ public class Book implements Entity {
         for (int i = 0; i < idxManager; i++) {
             if (LibraryImpl.books[i].exist) {
                 if (!LibraryImpl.books[i].borrowStatus) {
-                    readBook(LibraryImpl.books[i].name);
+                    readBook(search(LibraryImpl.books[i].name));
                     return;
                 }
             }
         }
-        
+
         System.out.println("Free book doesn't exist!");
         System.out.println();
     }
