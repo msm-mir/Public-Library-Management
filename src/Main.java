@@ -185,6 +185,7 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         String name = scn.nextLine();
 
-        Book.readBook(Book.search(name));
+        LibraryImpl library = new LibraryImpl();
+        Book.readBook(((Book) library.find(new Book(), name)).getId());
     }
 }

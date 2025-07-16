@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class LibraryImpl implements Library {
     public static Member[] members = new Member[100];
     static {
@@ -61,8 +63,23 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public Entity[] find(Entity example) {
-        return new Entity[0];
+    public Entity find(Entity example, String name) {
+        if (example instanceof Member) {
+            for (int i = 0; i < memberIdx; i++) {
+                if (Objects.equals(members[i].getName(), name)) {
+                    return members[i];
+                }
+            }
+            return null;
+        } else if (example instanceof Book) {
+            for (int i = 0; i < bookIdx; i++) {
+                if (Objects.equals(books[i].getName(), name)) {
+                    return books[i];
+                }
+            }
+            return null;
+        }
+        return null;
     }
 
     @Override

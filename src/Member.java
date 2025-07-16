@@ -43,7 +43,8 @@ public class Member implements Entity {
             System.out.print("Name: ");
             member.name = scn.nextLine();
 
-            if (search(member.name) == -1) {
+            LibraryImpl library = new LibraryImpl();
+            if (((Book) library.find(new Book(), member.name)).getId() == -1) {
                 System.out.print("Age: ");
                 member.age = scn.nextInt();
                 scn.nextLine();
@@ -130,13 +131,6 @@ public class Member implements Entity {
         System.out.println();
     }
 
-    public static int search(String name) {
-        for (int i = 0; i < 100; i++) {
-            if (Objects.equals(LibraryImpl.members[i].name, name)) return i;
-        }
-        return -1;
-    }
-
     public static void searchMemberByName() {
         System.out.print("Name: ");
 
@@ -206,7 +200,8 @@ public class Member implements Entity {
                     System.out.print("Book name:");
                     String bookName = scn.nextLine();
 
-                    int bookIdx = Book.search(bookName);
+                    LibraryImpl library = new LibraryImpl();
+                    int bookIdx = ((Book) library.find(new Book(), bookName)).getId();
                     if (bookIdx != -1) {
                         if (LibraryImpl.books[bookIdx].getBorrowStatus()) {
                             System.out.println("This book is already borrowed by another member!");
@@ -240,7 +235,8 @@ public class Member implements Entity {
                 System.out.print("Book name:");
                 String bookName = scn.nextLine();
 
-                int bookIdx = Book.search(bookName);
+                LibraryImpl library = new LibraryImpl();
+                int bookIdx = ((Book) library.find(new Book(), bookName)).getId();
                 if (bookIdx != -1) {
                     if (!LibraryImpl.books[bookIdx].getBorrowStatus()) {
                         System.out.println("This book isn't borrowed!");

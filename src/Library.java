@@ -2,7 +2,7 @@ interface Library {
     void save(Entity entity) throws EntityNotFoundException;
     void update(Entity entity, int idx) throws EntityNotFoundException;
     void delete(Entity entity, int idx) throws EntityNotFoundException;
-    Entity[] find(Entity example);
+    Entity find(Entity example, String name);
     void borrow(Member member, Book book);
     void giveBack(Member member, Book book);
 }
