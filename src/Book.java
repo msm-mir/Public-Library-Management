@@ -6,7 +6,7 @@ public class Book implements Entity {
     private String name;
     private String author;
     private int price;
-    private static int idxManager = 0;
+    private int ID;
     private boolean exist = false;
     private boolean borrowStatus = false;
     private LocalDate date;
@@ -17,8 +17,9 @@ public class Book implements Entity {
         this.name = name;
         this.author = author;
         this.price = price;
+        this.ID = LibraryImpl.getBookIdx();
         this.exist = true;
-        idxManager++;
+        LibraryImpl.setBookIdx(LibraryImpl.getBookIdx() + 1);
     }
 
     public String getName() { return this.name; }
@@ -32,26 +33,30 @@ public class Book implements Entity {
     public void setDate(LocalDate date) { this.date = date; }
     public void setMemberID(int id) { this.memberID = id; }
 
-    public static void createBook() {
+    public static Book createBook() {
         Scanner scn = new Scanner(System.in);
 
-        if (idxManager < 100) {
-            System.out.println("Book(" + idxManager + "):");
+        int bookId = LibraryImpl.getBookIdx();
+        if (bookId < 100) {
+            Book book = new Book();
+            System.out.println("Book(" + bookId + "):");
 
             System.out.print("Name: ");
-            LibraryImpl.books[idxManager].name = scn.nextLine();
+            book.name = scn.nextLine();
 
-            if (search(LibraryImpl.books[idxManager].name) == -1) {
+            if (search(book.name) == -1) {
                 System.out.print("Author: ");
-                LibraryImpl.books[idxManager].author = scn.nextLine();
+                book.author = scn.nextLine();
 
                 System.out.print("Price: ");
-                LibraryImpl.books[idxManager].price = scn.nextInt();
+                book.price = scn.nextInt();
 
-                LibraryImpl.books[idxManager].exist = true;
-                idxManager++;
+                book.exist = true;
+                book.ID = LibraryImpl.getBookIdx();
 
                 System.out.println("Book added successfully!");
+                System.out.println();
+                return book;
             } else {
                 System.out.println("Book already exists!");
             }
@@ -59,6 +64,7 @@ public class Book implements Entity {
             System.out.println("Library books are full!");
         }
         System.out.println();
+        return null;
     }
 
     public static void updateBook() {
@@ -93,11 +99,11 @@ public class Book implements Entity {
 
         int idx = search(name);
         if (idx != -1) {
-            for (int i = idx; i < idxManager - 1; i++) {
+            for (int i = idx; i < LibraryImpl.getBookIdx() - 1; i++) {
                 LibraryImpl.books[i] = LibraryImpl.books[i + 1];
             }
-            idxManager--;
-            LibraryImpl.books[idxManager].exist = false;
+            /*idxManager--;
+            LibraryImpl.books[idxManager].exist = false;*/
             System.out.println("Book deleted successfully!");
         } else {
             System.out.println("Book doesn't exist!");
@@ -119,7 +125,7 @@ public class Book implements Entity {
     }
 
     public static int search(String name) {
-        for (int i = 0; i < idxManager; i++) {
+        for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (Objects.equals(LibraryImpl.books[i].name, name)) return i;
         }
         return -1;
@@ -131,7 +137,7 @@ public class Book implements Entity {
         Scanner scn = new Scanner(System.in);
         String name = scn.nextLine();
 
-        for (int i = 0; i < idxManager; i++) {
+        for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].name, name)) {
                     readBook(search(name));
@@ -150,7 +156,7 @@ public class Book implements Entity {
         Scanner scn = new Scanner(System.in);
         String author = scn.nextLine();
 
-        for (int i = 0; i < idxManager; i++) {
+        for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].author, author)) {
                     readBook(search(LibraryImpl.books[i].name));
@@ -169,7 +175,7 @@ public class Book implements Entity {
         Scanner scn = new Scanner(System.in);
         int price = scn.nextInt();
 
-        for (int i = 0; i < idxManager; i++) {
+        for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (LibraryImpl.books[i].price <= price) {
                     readBook(search(LibraryImpl.books[i].name));
@@ -183,7 +189,7 @@ public class Book implements Entity {
     }
 
     public static void searchBookByBorrowStatus() {
-        for (int i = 0; i < idxManager; i++) {
+        for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (!LibraryImpl.books[i].borrowStatus) {
                     readBook(search(LibraryImpl.books[i].name));
@@ -197,7 +203,7 @@ public class Book implements Entity {
     }
 
     @Override
-    public int getId() { return idxManager; }
+    public int getId() { return 0; }
 
     @Override
     public void readFromConsole() throws BadEntityException {

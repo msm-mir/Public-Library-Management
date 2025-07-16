@@ -52,6 +52,8 @@ public class Member implements Entity {
                 member.gender = Gender.valueOf(scn.nextLine());
 
                 member.exist = true;
+                member.ID = LibraryImpl.getMemberIdx();
+
                 System.out.println("Member added successfully!");
                 System.out.println();
                 return member;

@@ -31,7 +31,11 @@ public class Main {
                     readMember();
                     break;
                 case 5:
-                    Book.createBook();
+                    try {
+                        library.save(Book.createBook());
+                    } catch (EntityNotFoundException exception) {
+
+                    }
                     break;
                 case 6:
                     Book.updateBook();
