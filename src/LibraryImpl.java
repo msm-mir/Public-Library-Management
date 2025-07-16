@@ -37,8 +37,14 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void update(Entity entity) throws EntityNotFoundException {
-
+    public void update(Entity entity, int idx) throws EntityNotFoundException {
+        if (entity instanceof Member) {
+            members[idx] = (Member) entity;
+        } else if (entity instanceof Book) {
+            books[idx] = (Book) entity;
+        } else {
+            throw new EntityNotFoundException();
+        }
     }
 
     @Override

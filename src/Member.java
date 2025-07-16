@@ -67,28 +67,33 @@ public class Member implements Entity {
         return null;
     }
 
-    public static void updateMember() {
+    public static Pair<Member, Integer> updateMember() {
         System.out.print("Please Enter The Member Id: ");
 
         Scanner scn = new Scanner(System.in);
         int id = scn.nextInt();
 
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
+            Member member = new Member();
+
             System.out.print("Name: ");
-            LibraryImpl.members[id].name = scn.nextLine();
+            member.name = scn.nextLine();
 
             System.out.print("Age: ");
-            LibraryImpl.members[id].age = scn.nextInt();
+            member.age = scn.nextInt();
             scn.nextLine();
 
             System.out.print("Gender: ");
-            LibraryImpl.members[id].gender = Gender.valueOf(scn.next());
+            member.gender = Gender.valueOf(scn.next());
 
             System.out.println("Member updated successfully!");
+            System.out.println();
+            return new Pair<>(member, id);
         } else {
             System.out.println("Member doesn't exist!");
         }
         System.out.println();
+        return null;
     }
 
     public static void deleteMember() {

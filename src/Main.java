@@ -22,7 +22,13 @@ public class Main {
                     }
                     break;
                 case 2:
-                    Member.updateMember();
+                    try {
+                        Pair<Member, Integer> p = Member.updateMember();
+                        if (p == null) throw new NullPointerException();
+                        library.update(p.left, p.right);
+                    } catch (EntityNotFoundException exception) {
+                        System.out.println(exception.getMessage());
+                    }
                     break;
                 case 3:
                     Member.deleteMember();
