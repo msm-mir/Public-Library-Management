@@ -49,7 +49,6 @@ public class Book implements Entity {
                 LibraryImpl.books[idxManager].price = scn.nextInt();
 
                 LibraryImpl.books[idxManager].exist = true;
-
                 idxManager++;
 
                 System.out.println("Book added successfully!");
@@ -58,20 +57,6 @@ public class Book implements Entity {
             }
         } else {
             System.out.println("Library books are full!");
-        }
-        System.out.println();
-    }
-
-    public static void readBook(String name) {
-        int idx = search(name);
-        if (idx != -1) {
-            Book book = LibraryImpl.books[idx];
-            System.out.println("Book(" + idx + "):");
-            System.out.println("name: " + book.name + ",");
-            System.out.println("author: " + book.author + ",");
-            System.out.println("price: " + book.price + ".");
-        } else {
-            System.out.println("Book doesn't exist!");
         }
         System.out.println();
     }
@@ -108,7 +93,7 @@ public class Book implements Entity {
 
         int idx = search(name);
         if (idx != -1) {
-            for (int i = idx; i > idxManager - 1; i++) {
+            for (int i = idx; i < idxManager - 1; i++) {
                 LibraryImpl.books[i] = LibraryImpl.books[i + 1];
             }
             idxManager--;
@@ -120,8 +105,22 @@ public class Book implements Entity {
         System.out.println();
     }
 
+    public static void readBook(String name) {
+        int idx = search(name);
+        if (idx != -1) {
+            Book book = LibraryImpl.books[idx];
+            System.out.println("Book(" + idx + "):");
+            System.out.println("name: " + book.name + ",");
+            System.out.println("author: " + book.author + ",");
+            System.out.println("price: " + book.price + ".");
+        } else {
+            System.out.println("Book doesn't exist!");
+        }
+        System.out.println();
+    }
+
     public static int search(String name) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < idxManager; i++) {
             if (Objects.equals(LibraryImpl.books[i].name, name)) return i;
         }
         return -1;

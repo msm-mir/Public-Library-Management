@@ -57,19 +57,6 @@ public class Member implements Entity {
         System.out.println();
     }
 
-    public static void readMember(int id) {
-        if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
-            Member tmp = LibraryImpl.members[id];
-            System.out.println("Member(" + id + "):");
-            System.out.println("name: " + tmp.name + ",");
-            System.out.println("age: " + tmp.age + ",");
-            System.out.println("gender: " + tmp.gender + ".");
-        } else {
-            System.out.println("Member doesn't exist!");
-        }
-        System.out.println();
-    }
-
     public static void updateMember() {
         System.out.print("Please Enter The Member Id: ");
 
@@ -108,6 +95,89 @@ public class Member implements Entity {
             System.out.println("Member doesn't exist!");
         }
         System.out.println();
+    }
+
+    public static void readMember(int id) {
+        if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
+            Member tmp = LibraryImpl.members[id];
+            System.out.println("Member(" + id + "):");
+            System.out.println("name: " + tmp.name + ",");
+            System.out.println("age: " + tmp.age + ",");
+            System.out.println("gender: " + tmp.gender + ".");
+        } else {
+            System.out.println("Member doesn't exist!");
+        }
+        System.out.println();
+    }
+
+    public static int search(String name) {
+        for (int i = 0; i < 100; i++) {
+            if (Objects.equals(LibraryImpl.members[i].name, name)) return i;
+        }
+        return -1;
+    }
+
+    public static void searchMemberByName() {
+        System.out.print("Name: ");
+
+        Scanner scn = new Scanner(System.in);
+        String name = scn.nextLine();
+
+        for (int i = 0; i < 100; i++) {
+            if (LibraryImpl.members[i].exist) {
+                if (Objects.equals(LibraryImpl.members[i].name, name)) {
+                    readMember(i);
+                    break;
+                }
+            }
+        }
+        
+        System.out.println("Member with this name doesn't exist!");
+        System.out.println();
+    }
+
+    public static void searchMemberByAge() {
+        System.out.print("Age: ");
+
+        Scanner scn = new Scanner(System.in);
+        int age = scn.nextInt();
+
+        boolean find = false;
+        for (int i = 0; i < 100; i++) {
+            if (LibraryImpl.members[i].exist) {
+                if (LibraryImpl.members[i].age == age) {
+                    readMember(i);
+                    find = true;
+                    break;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Member with this age doesn't exist!");
+            System.out.println();
+        }
+    }
+
+    public static void searchMemberByGender() {
+        System.out.print("Gender: ");
+
+        Scanner scn = new Scanner(System.in);
+        Gender gender = Gender.valueOf(scn.next());
+
+        boolean find = false;
+        for (int i = 0; i < 100; i++) {
+            if (LibraryImpl.members[i].exist) {
+                if (LibraryImpl.members[i].gender == gender) {
+                    readMember(i);
+                    find = true;
+                    break;
+                }
+            }
+        }
+        if (!find) {
+            System.out.println("Member with this gender doesn't exist!");
+            System.out.println();
+        }
     }
 
     public static void borrowBook() {
@@ -195,79 +265,6 @@ public class Member implements Entity {
                     }
                 }
             }
-        }
-    }
-
-    public static int search(String name) {
-        for (int i = 0; i < 100; i++) {
-            if (Objects.equals(LibraryImpl.members[i].name, name)) return i;
-        }
-        return -1;
-    }
-
-    public static void searchMemberByName() {
-        System.out.print("Name: ");
-
-        Scanner scn = new Scanner(System.in);
-        String name = scn.nextLine();
-
-        boolean find = false;
-        for (int i = 0; i < 100; i++) {
-            if (LibraryImpl.members[i].exist) {
-                if (Objects.equals(LibraryImpl.members[i].name, name)) {
-                    readMember(i);
-                    find = true;
-                    break;
-                }
-            }
-        }
-        if (!find) {
-            System.out.println("Member with this name doesn't exist!");
-            System.out.println();
-        }
-    }
-
-    public static void searchMemberByAge() {
-        System.out.print("Age: ");
-
-        Scanner scn = new Scanner(System.in);
-        int age = scn.nextInt();
-
-        boolean find = false;
-        for (int i = 0; i < 100; i++) {
-            if (LibraryImpl.members[i].exist) {
-                if (LibraryImpl.members[i].age == age) {
-                    readMember(i);
-                    find = true;
-                    break;
-                }
-            }
-        }
-        if (!find) {
-            System.out.println("Member with this age doesn't exist!");
-            System.out.println();
-        }
-    }
-
-    public static void searchMemberByGender() {
-        System.out.print("Gender: ");
-
-        Scanner scn = new Scanner(System.in);
-        Gender gender = Gender.valueOf(scn.next());
-
-        boolean find = false;
-        for (int i = 0; i < 100; i++) {
-            if (LibraryImpl.members[i].exist) {
-                if (LibraryImpl.members[i].gender == gender) {
-                    readMember(i);
-                    find = true;
-                    break;
-                }
-            }
-        }
-        if (!find) {
-            System.out.println("Member with this gender doesn't exist!");
-            System.out.println();
         }
     }
 
