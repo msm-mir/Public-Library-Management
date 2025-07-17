@@ -1,18 +1,11 @@
 # 📚 Library Management
 
-This project simulates a **simple library management system**. This program is implemented in **Java** as an online course practice and based on an object-oriented programming (OOP). The goal of this project is to provide a hands-on learning experience in Java through building a library management system.
+This project simulates a **simple library management system**. This program is implemented in **Java** and based on an object-oriented programming (OOP). The goal of this project is to provide a hands-on learning experience in Java through building a library management system.
 
 ---
 
 ## 💡 Features
 
-- Implements key **OOP** principles in **Java**, including:
-  - Classes
-  - Encapsulation
-  - Inheritance
-  - Polymorphism
-  - Interfaces
-  - Exception Handling
 - **Add new members** using their personal information (name, age, gender)
 - **Add new books** with details like title, author, and price
 - Members and Books have **unique ID**
@@ -47,15 +40,3 @@ This project simulates a **simple library management system**. This program is i
 ├── Pair.java
 └── README.md
 ```
-
----
-
-## 🚀 How To Run
-
-- Run the program in a terminal or console window for better visibility of the output
-
----
-
-👩🏻‍💻 Author
-
-Developed as part of an online Java course project
