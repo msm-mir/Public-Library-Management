@@ -45,13 +45,13 @@ public class Book implements Entity {
                 book.exist = true;
                 book.ID = bookId;
 
-                new Book().showOnConsole("Book added successfully!\n\n");
+                new Book().showOnConsole("Book Added Successfully!\n\n");
                 return book;
             } else {
-                new Book().showOnConsole("Book already exists!\n");
+                new Book().showOnConsole("Book Already Exists!\n");
             }
         } else {
-            new Book().showOnConsole("Library books are full!\n");
+            new Book().showOnConsole("Library Has No Space For New Books!\n");
         }
         new Book().showOnConsole("\n");
         return null;
@@ -63,7 +63,8 @@ public class Book implements Entity {
 
         Book tmpBook = (Book) new LibraryImpl().find(new Book(), name);
         if (tmpBook != null) {
-            Book book = new Book();
+            new Book().showOnConsole("Please Enter The New Information!\n");
+            Book book = LibraryImpl.books[tmpBook.getId()];
 
             new Book().showOnConsole("Name: ");
             book.name = (String) new Book().readFromConsole("");
@@ -74,10 +75,10 @@ public class Book implements Entity {
             new Book().showOnConsole("Price: ");
             book.price = (Integer) new Book().readFromConsole(0);
 
-            new Book().showOnConsole("Book updated successfully!\n\n");
+            new Book().showOnConsole("Book Updated Successfully!\n\n");
             return new Pair<>(book, tmpBook.ID);
         } else {
-            new Book().showOnConsole("Book doesn't exist!\n");
+            new Book().showOnConsole("Book Doesn't Exist!\n");
         }
         new Book().showOnConsole("\n");
         return null;
@@ -93,10 +94,10 @@ public class Book implements Entity {
                 LibraryImpl.books[i] = LibraryImpl.books[i + 1];
             }
 
-            new Book().showOnConsole("Book deleted successfully!\n\n");
+            new Book().showOnConsole("Book Deleted Successfully!\n\n");
             return new Pair<>(new Book(), tmpBook.ID);
         } else {
-            new Book().showOnConsole("Book doesn't exist!\n");
+            new Book().showOnConsole("Book Doesn't Exist!\n");
         }
         new Book().showOnConsole("\n");
         return null;
@@ -105,14 +106,14 @@ public class Book implements Entity {
     public static void readBook(int idx) {
         if (idx != -1) {
             Book book = LibraryImpl.books[idx];
-            new Book().showOnConsole("Book(" + idx + "):\n");
-            new Book().showOnConsole("name: " + book.name + ",\n");
-            new Book().showOnConsole("author: " + book.author + ",\n");
-            new Book().showOnConsole("price: " + book.price + ".\n");
+            new Book().showOnConsole("Book(" + idx + "): ");
+            new Book().showOnConsole("Name: " + book.name + ", ");
+            new Book().showOnConsole("Author: " + book.author + ", ");
+            new Book().showOnConsole("Price: " + book.price + ", ");
+            new Book().showOnConsole("Borrow Status: " + (book.borrowStatus ? "Borrowed" : "Available" + ".\n"));
         } else {
-            new Book().showOnConsole("Book doesn't exist!\n");
+            new Book().showOnConsole("Book Doesn't Exist!\n");
         }
-        new Book().showOnConsole("\n");
     }
 
     public static void searchBookByName() throws BadEntityException {
@@ -123,57 +124,70 @@ public class Book implements Entity {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].name, name)) {
                     readBook(i);
+                    new Book().showOnConsole("\n");
                     return;
                 }
             }
         }
 
-        new Book().showOnConsole("Book with this name doesn't exist!\n\n");
+        new Book().showOnConsole("Book With This Name Doesn't Exist!\n\n");
     }
 
     public static void searchBookByAuthor() throws BadEntityException {
         new Book().showOnConsole("Author: ");
         String author = (String) new Book().readFromConsole("");
+        boolean hasFound = false;
 
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (Objects.equals(LibraryImpl.books[i].author, author)) {
                     readBook(i);
-                    return;
+                    hasFound = true;
                 }
             }
         }
 
-        new Book().showOnConsole("Book with this author doesn't exist!\n\n");
+        if (!hasFound)
+            new Book().showOnConsole("Book With This Author Doesn't Exist!\n");
+
+        new Book().showOnConsole("\n");
     }
 
     public static void searchBookByPrice() throws BadEntityException {
         new Book().showOnConsole("Price: ");
         int price = (Integer) new Book().readFromConsole(0);
+        boolean hasFound = false;
 
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (LibraryImpl.books[i].price <= price) {
                     readBook(i);
-                    return;
+                    hasFound = true;
                 }
             }
         }
 
-        new Book().showOnConsole("Book with a lower price doesn't exist!\n\n");
+        if (!hasFound)
+            new Book().showOnConsole("Book With A Lower Price Doesn't Exist!\n");
+
+        new Book().showOnConsole("\n");
     }
 
     public static void searchBookByBorrowStatus() {
+        boolean hasFound = false;
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].exist) {
                 if (!LibraryImpl.books[i].borrowStatus) {
                     readBook(i);
-                    return;
+                    hasFound = true;
                 }
             }
         }
 
-        new Book().showOnConsole("Free book doesn't exist!\n\n");
+        if (!hasFound)
+            new Book().showOnConsole("No Available Book Exists!\n");
+
+        new Book().showOnConsole("\n");
     }
 
     @Override
@@ -185,13 +199,17 @@ public class Book implements Entity {
             if (input.matches("[a-zA-Z]+")) {
                 return input;
             } else {
-                throw new BadEntityException("Please enter letters only!\n");
+                throw new BadEntityException("Please Enter Letters Only!\n");
             }
         } else if (object instanceof Integer) {
             try {
-                return Integer.parseInt(input);
+                int i = Integer.parseInt(input);
+                if (i > 0)
+                    return i;
+                else
+                    throw new BadEntityException("Please Enter Positive Numbers Only!\n");
             } catch (NumberFormatException exception) {
-                throw new BadEntityException("Please enter numbers only!\n");
+                throw new BadEntityException("Please Enter Numbers Only!\n");
             }
         }
         return null;

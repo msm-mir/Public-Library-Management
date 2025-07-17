@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -11,7 +12,13 @@ public class Main {
             System.out.print("Please Enter Your Choice: ");
 
             Scanner scn = new Scanner(System.in);
-            int cmd = scn.nextInt();
+            int cmd;
+            try {
+                cmd = scn.nextInt();
+            } catch (InputMismatchException exception) {
+                System.out.println("Please Enter a Number!\n");
+                continue;
+            }
 
             switch (cmd) {
                 case 1:
@@ -47,6 +54,8 @@ public class Main {
                 case 4:
                     try {
                         readMember();
+                    } catch (BadEntityException exception) {
+                        System.out.println(exception.getMessage());
                     } catch (Throwable _) {}
                     break;
 
@@ -83,13 +92,21 @@ public class Main {
                 case 8:
                     try {
                         readBook();
+                    } catch (BadEntityException exception) {
+                        System.out.println(exception.getMessage());
                     } catch (Throwable _) {}
                     break;
 
                 case 9:
                     printMemberSearchMenu();
                     System.out.print("Please Enter Your Choice: ");
-                    cmd = scn.nextInt();
+
+                    try {
+                        cmd = scn.nextInt();
+                    } catch (InputMismatchException exception) {
+                        System.out.println("Please Enter a Number!\n");
+                        continue;
+                    }
 
                     switch (cmd) {
                         case 1:
@@ -129,7 +146,13 @@ public class Main {
                 case 10:
                     printBookSearchMenu();
                     System.out.print("Please Enter Your Choice: ");
-                    cmd = scn.nextInt();
+
+                    try {
+                        cmd = scn.nextInt();
+                    } catch (InputMismatchException exception) {
+                        System.out.println("Please Enter a Number!\n");
+                        continue;
+                    }
 
                     switch (cmd) {
                         case 1:
@@ -206,58 +229,66 @@ public class Main {
     }
 
     static void printMenu() {
-        System.out.println(" -----------------------------------------------------------------------------------------");
-        System.out.print("| 1.Add Member                                  ");
-        System.out.print("2.Edit Member             ");
-        System.out.println("3.Delete Member |");
-        System.out.print("| 4.Show Members                                ");
-        System.out.print("5.Add Book                ");
-        System.out.println("6.Edit Book     |");
-        System.out.print("| 7.Delete Book                                 ");
-        System.out.print("8.Show Books              ");
-        System.out.println("9.Search Member |");
-        System.out.print("| 10.Search Book                                ");
-        System.out.print("11.Borrow Book            ");
-        System.out.println("12.Return Book  |");
-        System.out.print("| 13.Show Members Who Didn't Return Books       ");
-        System.out.println("14.Exit                                   |");
-        System.out.println(" -----------------------------------------------------------------------------------------");
+        System.out.println(" -------------------------------------------------------" +
+                "---------------------------------------------------------------------");
+        System.out.print("| 1.Add Member                                    ");
+        System.out.print("2.Edit Member                 ");
+        System.out.print("3.Delete Member               ");
+        System.out.println("4.Show Members |");
+        System.out.print("| 5.Add Book                                      ");
+        System.out.print("6.Edit Book                   ");
+        System.out.print("7.Delete Book                 ");
+        System.out.println("8.Show Books   |");
+        System.out.print("| 9.Search Member                                 ");
+        System.out.print("10.Search Book                ");
+        System.out.print("11.Borrow Book                ");
+        System.out.println("12.Return Book |");
+        System.out.print("| 13.Show Members Who Didn't Return Books         ");
+        System.out.println("14.Exit                             " +
+                "                                       |");
+        System.out.println(" -------------------------------------------------------" +
+                "---------------------------------------------------------------------");
     }
 
     static void printMemberSearchMenu() {
-        System.out.println(" ---------------------------------------------------------------------------------------------");
-        System.out.print("| 1.Search Members By Name    ");
-        System.out.print("2.Search Members By Age    ");
-        System.out.print("3.Search Members By Gender    ");
+        System.out.println(" -------------------------------------------------------" +
+                "---------------------------------------------------------------------");
+        System.out.print("| 1.Search Members By Name               ");
+        System.out.print("2.Search Members By Age               ");
+        System.out.print("3.Search Members By Gender             ");
         System.out.println("4.Back |");
-        System.out.println(" ---------------------------------------------------------------------------------------------");
+        System.out.println(" -------------------------------------------------------" +
+                "---------------------------------------------------------------------");
     }
 
     static void printBookSearchMenu() {
-        System.out.println(" ----------------------------------------------------------------------");
+        System.out.println(" -------------------------------------------------------" +
+                "---------------------------------------------------------------------");
         System.out.print("| 1.Search Books By Name    ");
-        System.out.println("2.Search Books By Author                   |");
-        System.out.print("| 3.Search Books By Price    ");
+        System.out.print("2.Search Books By Author    ");
+        System.out.print("3.Search Books By Price    ");
         System.out.print("4.Search Books By Borrow Status    ");
         System.out.println("5.Back |");
-        System.out.println(" ----------------------------------------------------------------------");
+        System.out.println(" -------------------------------------------------------" +
+                "---------------------------------------------------------------------");
     }
 
-    static void readMember() {
-        System.out.print("Please Enter Member Id: ");
-
-        Scanner scn = new Scanner(System.in);
-        int id = scn.nextInt();
+    static void readMember() throws BadEntityException {
+        System.out.print("Please Enter The Member's ID: ");
+        int id = (Integer) new Member().readFromConsole(0);
 
         Member.readMember(id);
+        System.out.println();
     }
 
-    static void readBook() {
-        System.out.print("Please Enter The Book Name: ");
+    static void readBook() throws BadEntityException {
+        System.out.print("Please Enter The Book's Name: ");
+        String name = (String) new Book().readFromConsole("");
 
-        Scanner scn = new Scanner(System.in);
-        String name = scn.nextLine();
+        Book tmpBook = (Book) new LibraryImpl().find(new Book(), name);
+        if (tmpBook != null) Book.readBook(tmpBook.getId());
+        else System.out.println("Book Doesn't Exist!");
 
-        Book.readBook(new LibraryImpl().find(new Book(), name).getId());
+        System.out.println();
     }
 }
