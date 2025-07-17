@@ -6,7 +6,7 @@ This project simulates a **simple library management system**. This program is i
 
 ## 💡 Features
 
-- Implements key **OOP** principles of **Java**:
+- Implements key **OOP** principles in **Java**, including:
   - Classes
   - Encapsulation
   - Inheritance
