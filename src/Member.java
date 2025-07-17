@@ -38,7 +38,7 @@ public class Member implements Entity {
                 member.age = (Integer) new Member().readFromConsole(0);
 
                 new Member().showOnConsole("Gender: ");
-                member.gender = (Gender) new Member().readFromConsole(Gender.class);
+                member.gender = (Gender) new Member().readFromConsole(Gender.Male);
 
                 member.exist = true;
                 member.ID = memberId;
@@ -69,7 +69,7 @@ public class Member implements Entity {
             member.age = (Integer) new Member().readFromConsole(0);
 
             new Member().showOnConsole("Gender: ");
-            member.gender = (Gender) new Member().readFromConsole(Gender.class);
+            member.gender = (Gender) new Member().readFromConsole(Gender.Male);
 
             new Member().showOnConsole("Member updated successfully!\n\n");
             return new Pair<>(member, id);
@@ -145,7 +145,7 @@ public class Member implements Entity {
 
     public static void searchMemberByGender() throws BadEntityException {
         new Member().showOnConsole("Gender: ");
-        Gender gender = (Gender) new Member().readFromConsole(Gender.class);
+        Gender gender = (Gender) new Member().readFromConsole(Gender.Male);
 
         for (int i = 0; i < LibraryImpl.getMemberIdx(); i++) {
             if (LibraryImpl.members[i].exist) {
@@ -254,7 +254,7 @@ public class Member implements Entity {
         } else if (object instanceof Gender) {
             if (Objects.equals(input, "Male")) return Gender.Male;
             else if (Objects.equals(input, "Female")) return Gender.Female;
-            else throw new BadEntityException("Please enter Gender only (Male or Female)!\n");
+            else throw new BadEntityException("Please enter gender only (Male or Female)!\n");
         }
         return null;
     }
