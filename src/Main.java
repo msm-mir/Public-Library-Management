@@ -8,7 +8,7 @@ public class Main {
 
         while (true) {
             printMenu();
-            System.out.print("Please Enter Your Order: ");
+            System.out.print("Please Enter Your Choice: ");
 
             Scanner scn = new Scanner(System.in);
             int cmd = scn.nextInt();
@@ -84,7 +84,7 @@ public class Main {
 
                 case 9:
                     printMemberSearchMenu();
-                    System.out.print("Please Enter Your Order: ");
+                    System.out.print("Please Enter Your Choice: ");
                     cmd = scn.nextInt();
 
                     switch (cmd) {
@@ -116,7 +116,7 @@ public class Main {
                             break;
 
                         default:
-                            System.out.println("Wrong Order!");
+                            System.out.println("Wrong Choice!");
                             System.out.println();
                             break;
                     }
@@ -124,7 +124,7 @@ public class Main {
 
                 case 10:
                     printBookSearchMenu();
-                    System.out.print("Please Enter Your Order: ");
+                    System.out.print("Please Enter Your Choice: ");
                     cmd = scn.nextInt();
 
                     switch (cmd) {
@@ -160,7 +160,7 @@ public class Main {
                             break;
 
                         default:
-                            System.out.println("Wrong Order!");
+                            System.out.println("Wrong Choice!");
                             System.out.println();
                             break;
                     }
@@ -190,7 +190,7 @@ public class Main {
                     return;
 
                 default:
-                    System.out.println("Wrong Order!");
+                    System.out.println("Wrong Choice!");
                     System.out.println();
                     break;
             }
@@ -198,35 +198,41 @@ public class Main {
     }
 
     static void printMenu() {
-        System.out.print("1.Add Member    ");
-        System.out.print("2.Edit Member    ");
-        System.out.println("3.Delete Member");
-        System.out.print("4.Show Member    ");
-        System.out.print("5.Add Book    ");
-        System.out.println("6.Edit Book");
-        System.out.print("7.Delete Book    ");
-        System.out.print("8.Show Book    ");
-        System.out.println("9.Search Member");
-        System.out.print("10.Search Book    ");
-        System.out.print("11.Borrow Book    ");
-        System.out.println("12.Return Book");
-        System.out.print("13.Show Members Didn't Return Book    ");
-        System.out.println("14.Exit");
+        System.out.println(" -----------------------------------------------------------------------------------------");
+        System.out.print("| 1.Add Member                                  ");
+        System.out.print("2.Edit Member             ");
+        System.out.println("3.Delete Member |");
+        System.out.print("| 4.Show Members                                ");
+        System.out.print("5.Add Book                ");
+        System.out.println("6.Edit Book     |");
+        System.out.print("| 7.Delete Book                                 ");
+        System.out.print("8.Show Books              ");
+        System.out.println("9.Search Member |");
+        System.out.print("| 10.Search Book                                ");
+        System.out.print("11.Borrow Book            ");
+        System.out.println("12.Return Book  |");
+        System.out.print("| 13.Show Members Who Didn't Return Books       ");
+        System.out.println("14.Exit                                   |");
+        System.out.println(" -----------------------------------------------------------------------------------------");
     }
 
     static void printMemberSearchMenu() {
-        System.out.print("1.Search Member By Name    ");
-        System.out.print("2.Search Member By Age    ");
-        System.out.print("3.Search Member By Gender    ");
-        System.out.println("4.back");
+        System.out.println(" ---------------------------------------------------------------------------------------------");
+        System.out.print("| 1.Search Members By Name    ");
+        System.out.print("2.Search Members By Age    ");
+        System.out.print("3.Search Members By Gender    ");
+        System.out.println("4.Back |");
+        System.out.println(" ---------------------------------------------------------------------------------------------");
     }
 
     static void printBookSearchMenu() {
-        System.out.print("1.Search Book By Name    ");
-        System.out.println("2.Search Book By Author");
-        System.out.print("3.Search Book By Price    ");
-        System.out.print("4.Search Book By Borrow Status    ");
-        System.out.println("5.back");
+        System.out.println(" ----------------------------------------------------------------------");
+        System.out.print("| 1.Search Books By Name    ");
+        System.out.println("2.Search Books By Author                   |");
+        System.out.print("| 3.Search Books By Price    ");
+        System.out.print("4.Search Books By Borrow Status    ");
+        System.out.println("5.Back |");
+        System.out.println(" ----------------------------------------------------------------------");
     }
 
     static void readMember() {
