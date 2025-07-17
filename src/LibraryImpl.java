@@ -26,7 +26,7 @@ public class LibraryImpl implements Library {
     public static int getBookIdx() { return bookIdx; }
 
     @Override
-    public void save(Entity entity) throws EntityNotFoundException {
+    public void save(Entity entity) {
         if (entity instanceof Member) {
             members[memberIdx] = (Member) entity;
             memberIdx++;
@@ -68,32 +68,31 @@ public class LibraryImpl implements Library {
                     return members[i];
                 }
             }
-            return null;
         } else if (example instanceof Book) {
             for (int i = 0; i < bookIdx; i++) {
                 if (Objects.equals(books[i].getName(), name)) {
                     return books[i];
                 }
             }
-            return null;
         }
         return null;
     }
 
     @Override
     public void borrow(Member member, Book book, int idx) {
-        member.getBorrowBooks(idx).setDate(LocalDate.now().plus(Period.ofMonths(1)));
-        member.getBorrowBooks(idx).setBorrowStatus(true);
-        member.getBorrowBooks(idx).setMemberID(find(new Member(), member.getName()).getId());
-        member.setBorrowedBooks(books[bookIdx], idx);
+        books[book.getId()].setBorrowStatus(true);
+        books[book.getId()].setDate(LocalDate.now().plus(Period.ofMonths(1)));
+        books[book.getId()].setMemberID(member.getId());
+        members[member.getId()].setBorrowedBooks(books[book.getId()], idx);
     }
 
     @Override
     public boolean giveBack(Member member, Book book) {
         for (int i = 0; i < 10; i++) {
-            if (!members[member.getId()].getBorrowBooks(i).getBorrowStatus()) {
+            if (members[member.getId()].getBorrowBooks(i).getBorrowStatus()) {
                 if (Objects.equals(members[member.getId()].getBorrowBooks(i).getName(), book.getName())) {
-                    members[member.getId()].getBorrowBooks(i).setBorrowStatus(false);
+                    members[member.getId()].setBorrowedBooks(new Book(), i);
+                    books[book.getId()].setBorrowStatus(false);
                     return true;
                 }
             }

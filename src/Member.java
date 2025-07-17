@@ -6,7 +6,7 @@ public class Member implements Entity {
     private String name;
     private int age;
     private Gender gender;
-    private int ID;
+    private int ID = -1;
     private boolean exist = false;
     private Book[] borrowedBooks = new Book[10];
     {
@@ -25,6 +25,7 @@ public class Member implements Entity {
 
     public static Member createMember() throws BadEntityException {
         int memberId = LibraryImpl.getMemberIdx();
+
         if (memberId < 100) {
             Member member = new Member();
             new Member().showOnConsole("Member(" + memberId + "):\n");
@@ -32,7 +33,7 @@ public class Member implements Entity {
             new Member().showOnConsole("Name: ");
             member.name = (String) new Member().readFromConsole("");
 
-            if (new LibraryImpl().find(new Book(), member.name).getId() == -1) {
+            if (new LibraryImpl().find(new Member(), member.name) == null) {
                 new Member().showOnConsole("Age: ");
                 member.age = (Integer) new Member().readFromConsole(0);
 
@@ -40,7 +41,7 @@ public class Member implements Entity {
                 member.gender = Gender.valueOf((String) new Member().readFromConsole(""));
 
                 member.exist = true;
-                member.ID = LibraryImpl.getMemberIdx();
+                member.ID = memberId;
 
                 new Member().showOnConsole("Member added successfully!\n\n");
                 return member;
@@ -99,11 +100,11 @@ public class Member implements Entity {
 
     public static void readMember(int id) {
         if ((id >= 0 && id < 100) && (LibraryImpl.members[id].exist)) {
-            Member tmp = LibraryImpl.members[id];
+            Member member = LibraryImpl.members[id];
             new Member().showOnConsole("Member(" + id + "):\n");
-            new Member().showOnConsole("name: " + tmp.name + ",\n");
-            new Member().showOnConsole("age: " + tmp.age + ",\n");
-            new Member().showOnConsole("gender: " + tmp.gender + ".\n");
+            new Member().showOnConsole("name: " + member.name + ",\n");
+            new Member().showOnConsole("age: " + member.age + ",\n");
+            new Member().showOnConsole("gender: " + member.gender + ".\n");
         } else {
             new Member().showOnConsole("Member doesn't exist!\n");
         }
@@ -163,17 +164,19 @@ public class Member implements Entity {
         int memberId = (Integer) new Member().readFromConsole(0);
 
         if ((memberId >= 0 && memberId < 100) && (LibraryImpl.members[memberId].exist)) {
+            boolean cannotBorrow = true;
             for (int i = 0; i < 10; i++) {
                 if (!LibraryImpl.members[memberId].borrowedBooks[i].getBorrowStatus()) {
                     new Member().showOnConsole("Book name:");
                     String bookName = (String) new Member().readFromConsole("");
 
-                    int bookIdx = new LibraryImpl().find(new Book(), bookName).getId();
-                    if (bookIdx != -1) {
-                        if (LibraryImpl.books[bookIdx].getBorrowStatus()) {
+                    Book tmpBook = (Book) new LibraryImpl().find(new Book(), bookName);
+                    if (tmpBook != null) {
+                        if (LibraryImpl.books[tmpBook.getId()].getBorrowStatus()) {
                             new Member().showOnConsole("This book is already borrowed by another member!\n");
+                            cannotBorrow = false;
                         } else {
-                            new LibraryImpl().borrow(LibraryImpl.members[memberId], LibraryImpl.books[bookIdx], i);
+                            new LibraryImpl().borrow(LibraryImpl.members[memberId], LibraryImpl.books[tmpBook.getId()], i);
                             new Member().showOnConsole("Book borrowed successfully!\n");
                             return;
                         }
@@ -182,7 +185,7 @@ public class Member implements Entity {
                     }
                 }
             }
-            new Member().showOnConsole("Member can't borrows more than 10 books!\n");
+            if (cannotBorrow) new Member().showOnConsole("Member can't borrows more than 10 books!\n");
         } else {
             new Member().showOnConsole("Member doesn't exist!\n");
         }
@@ -197,16 +200,20 @@ public class Member implements Entity {
             new Member().showOnConsole("Book name:");
                 String bookName = (String) new Member().readFromConsole("");
 
-                int bookIdx = new LibraryImpl().find(new Book(), bookName).getId();
-                if (bookIdx != -1) {
-                    if (!LibraryImpl.books[bookIdx].getBorrowStatus()) {
-                        new Member().showOnConsole("This book isn't borrowed!\n");
-                    } else {
-                        if (new LibraryImpl().giveBack(LibraryImpl.members[memberId], LibraryImpl.books[bookIdx]))
+                Book tmpBook = (Book) new LibraryImpl().find(new Book(), bookName);
+                if (tmpBook != null) {
+                    if (LibraryImpl.books[tmpBook.getId()].getBorrowStatus()) {
+                        if (new LibraryImpl().giveBack(LibraryImpl.members[memberId], LibraryImpl.books[tmpBook.getId()])) {
                             return;
+                        } else {
+                            new Member().showOnConsole("Member hasn't borrowed this book!/n");
+                        }
+                    } else {
+                        new Member().showOnConsole("This book isn't borrowed!\n");
                     }
+                } else {
+                    new Member().showOnConsole("Book doesn't exist!\n");
                 }
-            new Member().showOnConsole("Book doesn't exist!\n");
         } else {
             new Member().showOnConsole("Member doesn't exist!\n");
         }

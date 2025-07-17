@@ -19,9 +19,9 @@ public class Main {
                         Member m = Member.createMember();
                         if (m == null) throw new NullPointerException();
                         library.save(m);
-                    } catch (EntityNotFoundException | BadEntityException exception) {
+                    } catch (BadEntityException | NullPointerException exception) {
                         System.out.println(exception.getMessage());
-                    } catch (NullPointerException _) {}
+                    }
                     break;
 
                 case 2:
@@ -29,9 +29,9 @@ public class Main {
                         Pair<Member, Integer> p = Member.updateMember();
                         if (p == null) throw new NullPointerException();
                         library.update(p.left, p.right);
-                    } catch (EntityNotFoundException | BadEntityException exception) {
+                    } catch (EntityNotFoundException | BadEntityException | NullPointerException exception) {
                         System.out.println(exception.getMessage());
-                    } catch (NullPointerException _) {}
+                    }
                     break;
 
                 case 3:
@@ -39,9 +39,9 @@ public class Main {
                         Pair<Member, Integer> p = Member.deleteMember();
                         if (p == null) throw new NullPointerException();
                         library.delete(p.left, p.right);
-                    } catch (EntityNotFoundException | BadEntityException exception) {
+                    } catch (EntityNotFoundException | BadEntityException | NullPointerException exception) {
                         System.out.println(exception.getMessage());
-                    } catch (NullPointerException _) {}
+                    }
                     break;
 
                 case 4:
@@ -53,9 +53,9 @@ public class Main {
                         Book b = Book.createBook();
                         if (b == null) throw new NullPointerException();
                         library.save(b);
-                    } catch (EntityNotFoundException | BadEntityException exception) {
+                    } catch (BadEntityException | NullPointerException exception) {
                         System.out.println(exception.getMessage());
-                    } catch (NullPointerException _) {}
+                    }
                     break;
 
                 case 6:
@@ -63,9 +63,9 @@ public class Main {
                         Pair<Book, Integer> p = Book.updateBook();
                         if (p == null) throw new NullPointerException();
                         library.update(p.left, p.right);
-                    } catch (EntityNotFoundException | BadEntityException exception) {
+                    } catch (EntityNotFoundException | BadEntityException | NullPointerException exception) {
                         System.out.println(exception.getMessage());
-                    } catch (NullPointerException _) {}
+                    }
                     break;
 
                 case 7:
@@ -73,9 +73,9 @@ public class Main {
                         Pair<Book, Integer> p = Book.deleteBook();
                         if (p == null) throw new NullPointerException();
                         library.delete(p.left, p.right);
-                    } catch (EntityNotFoundException | BadEntityException exception) {
+                    } catch (EntityNotFoundException | BadEntityException | NullPointerException exception) {
                         System.out.println(exception.getMessage());
-                    } catch (NullPointerException _) {}
+                    }
                     break;
 
                 case 8:
