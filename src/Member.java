@@ -221,13 +221,17 @@ public class Member implements Entity {
     }
 
     public static void showOverBorrowedMembers() {
+        boolean hasBorrowed = false;
         for (int i = 0; i < LibraryImpl.getBookIdx(); i++) {
             if (LibraryImpl.books[i].getBorrowStatus()) {
                 if (LocalDate.now().isBefore(LibraryImpl.books[i].getDate())) {
                     readMember(LibraryImpl.books[i].getMemberID());
+                    hasBorrowed = true;
                 }
             }
         }
+        if (!hasBorrowed)
+            new Member().showOnConsole("Members haven't borrowed yet!\n\n");
     }
 
     @Override
