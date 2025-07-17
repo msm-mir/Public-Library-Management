@@ -185,13 +185,13 @@ public class Book implements Entity {
             if (input.matches("[a-zA-Z]+")) {
                 return input;
             } else {
-                throw new BadEntityException("Please enter letters only!");
+                throw new BadEntityException("Please enter letters only!\n");
             }
         } else if (object instanceof Integer) {
             try {
                 return Integer.parseInt(input);
             } catch (NumberFormatException exception) {
-                throw new BadEntityException("Please enter numbers only!");
+                throw new BadEntityException("Please enter numbers only!\n");
             }
         }
         return null;

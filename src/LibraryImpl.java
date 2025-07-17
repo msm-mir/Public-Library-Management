@@ -43,7 +43,7 @@ public class LibraryImpl implements Library {
         } else if (entity instanceof Book) {
             books[idx] = (Book) entity;
         } else {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(new EntityNotFoundException().getMessage() + "\n");
         }
     }
 
@@ -56,7 +56,7 @@ public class LibraryImpl implements Library {
             books[idx] = new Book();
             bookIdx--;
         } else {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(new EntityNotFoundException().getMessage() + "\n");
         }
     }
 

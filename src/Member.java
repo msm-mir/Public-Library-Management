@@ -206,7 +206,7 @@ public class Member implements Entity {
                         if (new LibraryImpl().giveBack(LibraryImpl.members[memberId], LibraryImpl.books[tmpBook.getId()])) {
                             return;
                         } else {
-                            new Member().showOnConsole("Member hasn't borrowed this book!/n");
+                            new Member().showOnConsole("Member hasn't borrowed this book!\n");
                         }
                     } else {
                         new Member().showOnConsole("This book isn't borrowed!\n");
@@ -239,18 +239,18 @@ public class Member implements Entity {
             if (input.matches("[a-zA-Z]+")) {
                 return input;
             } else {
-                throw new BadEntityException("Please enter letters only!");
+                throw new BadEntityException("Please enter letters only!\n");
             }
         } else if (object instanceof Integer) {
             try {
                 return Integer.parseInt(input);
             } catch (NumberFormatException exception) {
-                throw new BadEntityException("Please enter numbers only!");
+                throw new BadEntityException("Please enter numbers only!\n");
             }
         } else if (object instanceof Gender) {
             if (Objects.equals(input, "Male")) return Gender.Male;
             else if (Objects.equals(input, "Female")) return Gender.Female;
-            else throw new BadEntityException("Please enter Gender only (Male or Female)!");
+            else throw new BadEntityException("Please enter Gender only (Male or Female)!\n");
         }
         return null;
     }

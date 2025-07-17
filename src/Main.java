@@ -19,9 +19,9 @@ public class Main {
                         Member m = Member.createMember();
                         if (m == null) throw new NullPointerException();
                         library.save(m);
-                    } catch (BadEntityException | NullPointerException exception) {
+                    } catch (BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (Throwable _) {}
                     break;
 
                 case 2:
@@ -29,9 +29,9 @@ public class Main {
                         Pair<Member, Integer> p = Member.updateMember();
                         if (p == null) throw new NullPointerException();
                         library.update(p.left, p.right);
-                    } catch (EntityNotFoundException | BadEntityException | NullPointerException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (Throwable _) {}
                     break;
 
                 case 3:
@@ -39,13 +39,15 @@ public class Main {
                         Pair<Member, Integer> p = Member.deleteMember();
                         if (p == null) throw new NullPointerException();
                         library.delete(p.left, p.right);
-                    } catch (EntityNotFoundException | BadEntityException | NullPointerException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (Throwable _) {}
                     break;
 
                 case 4:
-                    readMember();
+                    try {
+                        readMember();
+                    } catch (Throwable _) {}
                     break;
 
                 case 5:
@@ -53,9 +55,9 @@ public class Main {
                         Book b = Book.createBook();
                         if (b == null) throw new NullPointerException();
                         library.save(b);
-                    } catch (BadEntityException | NullPointerException exception) {
+                    } catch (BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (Throwable _) {}
                     break;
 
                 case 6:
@@ -63,9 +65,9 @@ public class Main {
                         Pair<Book, Integer> p = Book.updateBook();
                         if (p == null) throw new NullPointerException();
                         library.update(p.left, p.right);
-                    } catch (EntityNotFoundException | BadEntityException | NullPointerException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (Throwable _) {}
                     break;
 
                 case 7:
@@ -73,13 +75,15 @@ public class Main {
                         Pair<Book, Integer> p = Book.deleteBook();
                         if (p == null) throw new NullPointerException();
                         library.delete(p.left, p.right);
-                    } catch (EntityNotFoundException | BadEntityException | NullPointerException exception) {
+                    } catch (EntityNotFoundException | BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (Throwable _) {}
                     break;
 
                 case 8:
-                    readBook();
+                    try {
+                        readBook();
+                    } catch (Throwable _) {}
                     break;
 
                 case 9:
@@ -93,7 +97,7 @@ public class Main {
                                 Member.searchMemberByName();
                             } catch (BadEntityException exception) {
                                 System.out.println(exception.getMessage());
-                            }
+                            }  catch (Throwable _) {}
                             break;
 
                         case 2:
@@ -101,7 +105,7 @@ public class Main {
                                 Member.searchMemberByAge();
                             } catch (BadEntityException exception) {
                                 System.out.println(exception.getMessage());
-                            }
+                            } catch (Throwable _) {}
                             break;
 
                         case 3:
@@ -109,7 +113,7 @@ public class Main {
                                 Member.searchMemberByGender();
                             } catch (BadEntityException exception) {
                                 System.out.println(exception.getMessage());
-                            }
+                            } catch (Throwable _) {}
                             break;
 
                         case 4:
@@ -133,7 +137,7 @@ public class Main {
                                 Book.searchBookByName();
                             } catch (BadEntityException exception) {
                                 System.out.println(exception.getMessage());
-                            }
+                            } catch (Throwable _) {}
                             break;
 
                         case 2:
@@ -141,7 +145,7 @@ public class Main {
                                 Book.searchBookByAuthor();
                             } catch (BadEntityException exception) {
                                 System.out.println(exception.getMessage());
-                            }
+                            } catch (Throwable _) {}
                             break;
 
                         case 3:
@@ -149,11 +153,13 @@ public class Main {
                                 Book.searchBookByPrice();
                             } catch (BadEntityException exception) {
                                 System.out.println(exception.getMessage());
-                            }
+                            } catch (Throwable _) {}
                             break;
 
                         case 4:
-                            Book.searchBookByBorrowStatus();
+                            try {
+                                Book.searchBookByBorrowStatus();
+                            } catch (Throwable _) {}
                             break;
 
                         case 5:
@@ -171,7 +177,7 @@ public class Main {
                         Member.borrowBook();
                     } catch (BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (Throwable _) {}
                     break;
 
                 case 12:
@@ -179,11 +185,13 @@ public class Main {
                         Member.returnBook();
                     } catch (BadEntityException exception) {
                         System.out.println(exception.getMessage());
-                    }
+                    } catch (Throwable _) {}
                     break;
 
                 case 13:
-                    Member.showOverBorrowedMembers();
+                    try {
+                        Member.showOverBorrowedMembers();
+                    } catch (Throwable _) {}
                     break;
 
                 case 14:
