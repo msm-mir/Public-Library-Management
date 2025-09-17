@@ -1,10 +1,10 @@
-# 📚 Library Management
+# Library Management
 
 This project simulates a **simple library management system**. This program is implemented in **Java** and based on an object-oriented programming (OOP). The goal of this project is to provide a hands-on learning experience in Java through building a library management system.
 
 ---
 
-## 💡 Features
+## Features
 
 - **Add new members** using their personal information (name, age, gender)
 - **Add new books** with details like title, author, and price
@@ -17,14 +17,14 @@ This project simulates a **simple library management system**. This program is i
 
 ---
 
-## 🛠️ Technical Details
+## Technical Details
 
 - Implemented in Java
 - Input and output are handled through the **console**
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 /LibraryProject
